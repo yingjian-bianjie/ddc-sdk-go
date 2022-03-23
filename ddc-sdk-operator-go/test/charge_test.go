@@ -13,18 +13,24 @@ var chargeService = client.GetChargeService()
 
 func TestSelfRecharge(t *testing.T) {
 	opts.From = common.HexToAddress(operator)
-	fmt.Println(chargeService.SelfRecharge(opts, 1e5))
+	fmt.Println(chargeService.SelfRecharge(opts, 1e1))
 }
 func TestRecharge(t *testing.T) {
 	opts.From = common.HexToAddress(operator)
-	fmt.Println(chargeService.Recharge(opts, v1, 1e10))
+	opts.GasLimit = 1e7
+	tx, err := chargeService.Recharge(opts, platform, 1e11)
+	if err != nil {
+		return
+	}
+	fmt.Println(tx.Hash())
 }
 func TestBalanceOf(t *testing.T) {
-	balance, _ := chargeService.BalanceOf(v1)
+
+	balance, _ := chargeService.BalanceOf(operator)
 	fmt.Println("balance:", balance)
 }
 func TestQueryFee(t *testing.T) {
-	fmt.Println(chargeService.QueryFee(config.Info.Ddc1155Address().Hex(), [4]byte{0x63, 0x57, 0x03, 0x55}))
+	fmt.Println(chargeService.QueryFee(config.Info.Ddc721Address().Hex(), [4]byte{0x23, 0xb8, 0x72, 0xdd}))
 }
 func TestSetFee(t *testing.T) {
 	opts.From = common.HexToAddress(operator)

@@ -14,7 +14,7 @@ func TestDDC1155_BalanceOf(t *testing.T) {
 	fmt.Println(ddc1155Service.BalanceOf(platform, 10))
 }
 func TestDDC1155Freeze(t *testing.T) {
-	opts.From = common.HexToAddress(platform)
+	opts.From = common.HexToAddress(operator)
 	fmt.Println(ddc1155Service.Freeze(opts, 5))
 }
 func TestDDC1155DDCURI(t *testing.T) {

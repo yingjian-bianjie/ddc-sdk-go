@@ -23,3 +23,10 @@ func TestCreateAccount(t *testing.T) {
 	base := service.Base{}
 	fmt.Println(base.CreateAccount())
 }
+func TestAddrToBeach32(t *testing.T) {
+	bech32, err := client.HexToBech32(common.Hex2Bytes("02CEB40D892061D457E7FA346988D0FF329935DF"))
+	if err != nil {
+		return
+	}
+	fmt.Println(bech32)
+}

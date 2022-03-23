@@ -14,7 +14,8 @@ func TestDDC721BalanceOf(t *testing.T) {
 }
 
 func TestApprove(t *testing.T) {
-	fmt.Println(ddc721Service.Approve(opts, v1, 1))
+	opts.From = common.HexToAddress(platform)
+	fmt.Println(ddc721Service.Approve(opts, v1, 17))
 }
 
 func TestGetApprove(t *testing.T) {
@@ -27,7 +28,11 @@ func TestIsApprovedForAll(t *testing.T) {
 
 func TestTransferFrom(t *testing.T) {
 	opts.From = common.HexToAddress(platform)
-	fmt.Println(ddc721Service.TransferFrom(opts, platform, v2, 5))
+	transaction, err := ddc721Service.TransferFrom(opts, platform, platform, 17)
+	if err != nil {
+		return
+	}
+	fmt.Println(transaction.Hash())
 }
 
 func TestSafeTransferFrom(t *testing.T) {
@@ -46,7 +51,7 @@ func TestFreeze(t *testing.T) {
 }
 
 func TestOwnerOf(t *testing.T) {
-	owner, err := ddc721Service.OwnerOf(63)
+	owner, err := ddc721Service.OwnerOf(17)
 	if err != nil {
 		fmt.Println(err)
 		return

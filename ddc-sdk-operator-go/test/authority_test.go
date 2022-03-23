@@ -16,11 +16,16 @@ func TestAddConsumerByOperator(t *testing.T) {
 	fmt.Println(authorityService.AddAccountByOperator(opts, platform, "ddcplatform", "did:ddcplatform", ""))
 }
 func TestGetAccount(t *testing.T) {
-	fmt.Println(authorityService.GetAccount("0x2F4AB3D3D827E61D71BDCF33A5C52090BBE7F0C9"))
+	fmt.Println(authorityService.GetAccount(platform))
 }
 func TestAddFunction(t *testing.T) {
+	opts.From = common.HexToAddress(operator)
+	transaction, err := authorityService.AddFunction(opts, 1, config.Info.Ddc1155Address().Hex(), [4]byte{0xd7, 0xa7, 0x8d, 0xb8})
+	if err != nil {
+		return
+	}
 	//safeMint
-	fmt.Println(authorityService.AddFunction(opts, 2, config.Info.Ddc721Address().Hex(), [4]byte{0xf6, 0xdd, 0xa9, 0x36}))
+	fmt.Println(transaction.Hash())
 }
 func TestUpdateAccState(t *testing.T) {
 	opts.From = common.HexToAddress(operator)
