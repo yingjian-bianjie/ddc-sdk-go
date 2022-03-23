@@ -1,0 +1,26 @@
+package constant
+
+const (
+	FuncMint                  = "mint"
+	FuncSafeMint              = "safeMint"
+	FuncSafeMintBatch         = "safeMintBatch"
+	FuncApprove               = "approve"
+	FuncSetApprovalForAll     = "setApprovalForAll"
+	FuncSafeTransferFrom      = "safeTransferFrom"
+	FuncTransferFrom          = "transferFrom"
+	FuncFreeze                = "Freeze"
+	FuncUnFreeze              = "unFreeze"
+	FuncBurn                  = "burn"
+	FuncBurnBatch             = "burnBatch"
+	FuncSetURI                = "setURI"
+	FuncSetNameAndSymbol      = "setNameAndSymbol"
+	FuncSafeBatchTransferFrom = "safeBatchTransferFrom"
+	FuncRecharge              = "recharge"
+	FuncSelfRecharge          = "selfRecharge"
+	FuncSetFee                = "setFee"
+	FuncDelFee                = "delFee"
+	FuncDelDDC                = "delDDC"
+	FuncAddAccountByOperator  = "addAccountByOperator"
+	FuncUpdateAccState        = "updateAccountState"
+	FuncCrossPlatformApproval = "crossPlatformApproval"
+)
