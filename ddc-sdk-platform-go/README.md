@@ -72,7 +72,7 @@ func (s *SignListener) SignEvent(sender common.Address, tx *types.Transaction) (
 	if err != nil {
 		log.Fatalf("StringToPrivateKey failed:%v", err)
 	}
-	// 签名,m
+	// 签名
 	signTx, err := types.SignTx(tx, types.HomesteadSigner{}, privateKey)
 
 	return signTx, err
@@ -639,7 +639,7 @@ func (s *SignListener) SignEvent(sender common.Address, tx *types.Transaction) (
 	if err != nil {
 		log.Fatalf("StringToPrivateKey failed:%v", err)
 	}
-	// 签名,m
+	// 签名
 	signTx, err := types.SignTx(tx, types.HomesteadSigner{}, privateKey)
 
 	return signTx, err
@@ -1131,7 +1131,7 @@ func (s *SignListener) SignEvent(sender common.Address, tx *types.Transaction) (
 	if err != nil {
 		log.Fatalf("StringToPrivateKey failed:%v", err)
 	}
-	// 签名,m
+	// 签名
 	signTx, err := types.SignTx(tx, types.HomesteadSigner{}, privateKey)
 
 	return signTx, err
