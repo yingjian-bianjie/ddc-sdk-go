@@ -1564,16 +1564,16 @@ CreateAccount() (*dto.Account, error)
 
 ## 测试用例
 
-[AuthorityServiceTest.java](/test/authority_test.go)
+[AuthorityServiceTest.java](test/authority_test.go)
 
-[ChargeServiceTest.java](/test/charge_test.go)
+[ChargeServiceTest.java](test/charge_test.go)
 
-[BaseServiceTest.java](/test/base_test.go)
+[BaseServiceTest.java](test/base_test.go)
 
-[BlockEventServiceTest.java](/test/block_test.go)
+[BlockEventServiceTest.java](test/block_test.go)
 
-[DDC721ServiceTest.java](/test/ddc721_test.go)
+[DDC721ServiceTest.java](test/ddc721_test.go)
 
-[DDC1155ServiceTest.java](/test/ddc1155_test.go)
+[DDC1155ServiceTest.java](test/ddc1155_test.go)
 
-[SignEventTest.java](/test/sign_test.go)
+[SignEventTest.java](test/sign_test.go)
