@@ -10,8 +10,6 @@ import (
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-platform-go/pkg/log"
 )
 
-var conn = GetConn()
-
 // GetConn 获取连接实体
 func GetConn() *ethclient.Client {
 	var ctx context.Context
@@ -27,7 +25,7 @@ func GetConn() *ethclient.Client {
 
 // GetAuthority 获取Authority合约实体
 func GetAuthority() *contracts.Authority {
-	authority, err := contracts.NewAuthority(config.Info.AuthorityAddress(), conn)
+	authority, err := contracts.NewAuthority(config.Info.AuthorityAddress(), config.Info.Conn())
 	if err != nil {
 		log.Error.Printf("failed to get contract Authority:%v", err)
 		return nil
@@ -37,7 +35,7 @@ func GetAuthority() *contracts.Authority {
 
 // GetCharge 获取Charge合约实体
 func GetCharge() *contracts.Charge {
-	charge, err := contracts.NewCharge(config.Info.ChargeAddress(), conn)
+	charge, err := contracts.NewCharge(config.Info.ChargeAddress(), config.Info.Conn())
 	if err != nil {
 		log.Error.Printf("failed to get contract Charge:%v", err)
 		return nil
@@ -47,7 +45,7 @@ func GetCharge() *contracts.Charge {
 
 // GetDDC721 获取DDC721合约实体
 func GetDDC721() *contracts.DDC721 {
-	ddc721, err := contracts.NewDDC721(config.Info.Ddc721Address(), conn)
+	ddc721, err := contracts.NewDDC721(config.Info.Ddc721Address(), config.Info.Conn())
 	if err != nil {
 		log.Error.Printf("failed to get contract DDC721:%v", err)
 	}
@@ -56,7 +54,7 @@ func GetDDC721() *contracts.DDC721 {
 
 // GetDDC1155 获取DDC1155合约实体
 func GetDDC1155() *contracts.DDC1155 {
-	ddc1155, err := contracts.NewDDC1155(config.Info.Ddc1155Address(), conn)
+	ddc1155, err := contracts.NewDDC1155(config.Info.Ddc1155Address(), config.Info.Conn())
 	if err != nil {
 		log.Error.Printf("failed to get contract DDC1155:%v", err)
 	}
