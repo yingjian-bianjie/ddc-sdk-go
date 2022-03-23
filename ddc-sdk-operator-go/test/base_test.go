@@ -19,3 +19,7 @@ func TestGetDDCId(t *testing.T) {
 	base := service.Base{}
 	fmt.Println(base.DDCIdByHash("0xc806461847abf17c899a027edddeaa8c0ea57b64f10580f63c1c385f9aa3b282"))
 }
+func TestCreateAccount(t *testing.T) {
+	base := service.Base{}
+	fmt.Println(base.CreateAccount())
+}

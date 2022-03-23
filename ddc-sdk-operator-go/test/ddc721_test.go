@@ -37,11 +37,21 @@ func TestSafeTransferFrom(t *testing.T) {
 
 func TestFreeze(t *testing.T) {
 	opts.From = common.HexToAddress(platform)
-	fmt.Println(ddc721Service.Freeze(opts, 5))
+	freeze, err := ddc721Service.Freeze(opts, 5)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println(freeze)
 }
 
 func TestOwnerOf(t *testing.T) {
-	fmt.Println(ddc721Service.OwnerOf(7))
+	owner, err := ddc721Service.OwnerOf(7)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(owner)
 }
 
 func TestDDCURI(t *testing.T) {

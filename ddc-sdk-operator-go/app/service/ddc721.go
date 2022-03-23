@@ -42,7 +42,7 @@ func (d *DDC721Service) Approve(opts *bind.TransactOpts, to string, ddcId int64)
 	signedTx, err = handler.GetDDC721().Approve(opts, common.HexToAddress(to), big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute FuncApprove: %v", err.Error())
-		return signedTx, types2.TransactError
+		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -62,7 +62,7 @@ func (d *DDC721Service) GetApprove(ddcId int64) (string, error) {
 	approved, err := handler.GetDDC721().GetApproved(nil, big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute GetApprove: %v", err.Error())
-		return "", types2.QueryError
+		return "", types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return approved.String(), nil
@@ -87,7 +87,7 @@ func (d *DDC721Service) SetApprovalForAll(opts *bind.TransactOpts, operator stri
 	signedTx, err = handler.GetDDC721().SetApprovalForAll(opts, common.HexToAddress(operator), approved)
 	if err != nil {
 		log.Error.Printf("failed to execute SetApprovalForAll: %v", err.Error())
-		return signedTx, types2.TransactError
+		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -111,7 +111,7 @@ func (d *DDC721Service) IsApprovedForAll(owner, operator string) (bool, error) {
 	isApprovedForAll, err := handler.GetDDC721().IsApprovedForAll(nil, common.HexToAddress(owner), common.HexToAddress(operator))
 	if err != nil {
 		log.Error.Printf("failed to execute IsApprovedForAll: %v", err.Error())
-		return false, types2.QueryError
+		return false, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return isApprovedForAll, nil
@@ -143,7 +143,7 @@ func (d *DDC721Service) SafeTransferFrom(opts *bind.TransactOpts, from, to strin
 	signedTx, err = handler.GetDDC721().SafeTransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcId), data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeTransferFrom: %v", err.Error())
-		return signedTx, types2.TransactError
+		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -175,7 +175,7 @@ func (d *DDC721Service) TransferFrom(opts *bind.TransactOpts, from, to string, d
 	signedTx, err = handler.GetDDC721().TransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute TransferFrom: %v", err.Error())
-		return signedTx, types2.TransactError
+		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -199,7 +199,7 @@ func (d *DDC721Service) Freeze(opts *bind.TransactOpts, ddcId int64) (signedTx *
 	signedTx, err = handler.GetDDC721().Freeze(opts, big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute Freeze: %v", err.Error())
-		return signedTx, types2.TransactError
+		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -222,7 +222,7 @@ func (d *DDC721Service) UnFreeze(opts *bind.TransactOpts, ddcId int64) (signedTx
 	signedTx, err = handler.GetDDC721().UnFreeze(opts, big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute UnFreeze: %v", err.Error())
-		return signedTx, types2.TransactError
+		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -246,7 +246,7 @@ func (d *DDC721Service) Burn(opts *bind.TransactOpts, ddcId int64) (signedTx *ty
 	signedTx, err = handler.GetDDC721().Burn(opts, big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute Burn: %v", err.Error())
-		return signedTx, types2.TransactError
+		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -266,7 +266,7 @@ func (d *DDC721Service) BalanceOf(owner string) (uint64, error) {
 	balance, err := handler.GetDDC721().BalanceOf(nil, common.HexToAddress(owner))
 	if err != nil {
 		log.Error.Printf("failed to execute BalanceOf: %v", err.Error())
-		return 0, types2.QueryError
+		return 0, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return balance.Uint64(), nil
@@ -286,7 +286,7 @@ func (d *DDC721Service) OwnerOf(ddcId int64) (string, error) {
 	owner, err := handler.GetDDC721().OwnerOf(nil, big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute OwnerOf: %v", err.Error())
-		return "", types2.QueryError
+		return "", types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return owner.String(), nil
@@ -301,7 +301,7 @@ func (d *DDC721Service) Name() (string, error) {
 	name, err := handler.GetDDC721().Name(nil)
 	if err != nil {
 		log.Error.Printf("failed to execute Name: %v", err.Error())
-		return "", types2.QueryError
+		return "", types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return name, nil
@@ -316,7 +316,7 @@ func (d *DDC721Service) Symbol() (string, error) {
 	symbol, err := handler.GetDDC721().Symbol(nil)
 	if err != nil {
 		log.Error.Printf("failed to execute Symbol: %v", err.Error())
-		return "", types2.QueryError
+		return "", types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return symbol, nil
@@ -332,7 +332,7 @@ func (d *DDC721Service) DdcURI(ddcId int64) (string, error) {
 	ddcURI, err := handler.GetDDC721().DdcURI(nil, big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute DdcURI: %v", err.Error())
-		return "", types2.QueryError
+		return "", types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return ddcURI, nil
@@ -359,7 +359,7 @@ func (d *DDC721Service) SetURI(opts *bind.TransactOpts, ddcId int64, ddcURI stri
 	signedTx, err = handler.GetDDC721().SetURI(opts, big.NewInt(ddcId), ddcURI)
 	if err != nil {
 		log.Error.Printf("failed to execute SetURI: %v", err.Error())
-		return signedTx, types2.TransactError
+		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -387,7 +387,7 @@ func (d *DDC721Service) SetNameAndSymbol(opts *bind.TransactOpts, name, symbol s
 	signedTx, err = handler.GetDDC721().SetNameAndSymbol(opts, name, symbol)
 	if err != nil {
 		log.Error.Printf("failed to execute SetNameAndSymbol: %v", err.Error())
-		return signedTx, types2.TransactError
+		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil

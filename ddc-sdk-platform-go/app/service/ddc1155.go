@@ -43,7 +43,7 @@ func (d *DDC1155Service) SafeMint(opts *bind.TransactOpts, to string, amount int
 	signedTx, err = handler.GetDDC1155().SafeMint(opts, common.HexToAddress(to), big.NewInt(amount), ddcURI, data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeMint: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(),err.Error())
 	}
 
 	return signedTx, nil
@@ -72,7 +72,7 @@ func (d *DDC1155Service) SafeMintBatch(opts *bind.TransactOpts, to string, amoun
 	signedTx, err = handler.GetDDC1155().SafeMintBatch(opts, common.HexToAddress(to), amounts, ddcURIs, data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeMintBatch: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(),err.Error())
 	}
 
 	return signedTx, nil
@@ -96,7 +96,7 @@ func (d *DDC1155Service) SetApprovalForAll(opts *bind.TransactOpts, operator str
 	signedTx, err = handler.GetDDC1155().SetApprovalForAll(opts, common.HexToAddress(operator), approved)
 	if err != nil {
 		log.Error.Printf("failed to execute SetApprovalForAll: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(),err.Error())
 	}
 
 	return signedTx, nil
@@ -120,7 +120,7 @@ func (d *DDC1155Service) IsApprovedForAll(owner, operator string) (bool, error) 
 	isApprovedForAll, err := handler.GetDDC1155().IsApprovedForAll(nil, common.HexToAddress(owner), common.HexToAddress(operator))
 	if err != nil {
 		log.Error.Printf("failed to execute IsApprovedForAll: %v", err.Error())
-		return false, types2.QueryError
+		return false, types2.NewSDKError(types2.QueryError.Error(),err.Error())
 	}
 
 	return isApprovedForAll, nil
@@ -156,7 +156,7 @@ func (d *DDC1155Service) SafeTransferFrom(opts *bind.TransactOpts, from, to stri
 	signedTx, err = handler.GetDDC1155().SafeTransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcId), big.NewInt(amount), data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeTransferFrom: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(),err.Error())
 	}
 
 	return signedTx, nil
@@ -198,7 +198,7 @@ func (d *DDC1155Service) SafeBatchTransferFrom(opts *bind.TransactOpts, from, to
 	signedTx, err = handler.GetDDC1155().SafeBatchTransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), ddcIds, amounts, data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeBatchTransferFrom: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(),err.Error())
 	}
 
 	return signedTx, nil
@@ -224,7 +224,7 @@ func (d *DDC1155Service) Burn(opts *bind.TransactOpts, owner string, ddcId int64
 	signedTx, err = handler.GetDDC1155().Burn(opts, common.HexToAddress(owner), big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute Burn: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(),err.Error())
 	}
 
 	return signedTx, nil
@@ -258,7 +258,7 @@ func (d *DDC1155Service) BurnBatch(opts *bind.TransactOpts, owner string, ddcIds
 	signedTx, err = handler.GetDDC1155().BurnBatch(opts, common.HexToAddress(owner), ddcIDs)
 	if err != nil {
 		log.Error.Printf("failed to execute BurnBatch: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(),err.Error())
 	}
 
 	return signedTx, nil
@@ -282,7 +282,7 @@ func (d *DDC1155Service) BalanceOf(owner string, ddcId int64) (uint64, error) {
 	balance, err := handler.GetDDC1155().BalanceOf(nil, common.HexToAddress(owner), big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute BalanceOf: %v", err.Error())
-		return 0, types2.QueryError
+		return 0, types2.NewSDKError(types2.QueryError.Error(),err.Error())
 	}
 
 	return balance.Uint64(), nil
@@ -303,7 +303,7 @@ func (d *DDC1155Service) BalanceOfBatch(owners []common.Address, ddcIds []*big.I
 	balance, err := handler.GetDDC1155().BalanceOfBatch(nil, owners, ddcIds)
 	if err != nil {
 		log.Error.Printf("failed to execute BalanceOfBatch: %v", err.Error())
-		return nil, types2.QueryError
+		return nil, types2.NewSDKError(types2.QueryError.Error(),err.Error())
 	}
 
 	return balance, nil
@@ -319,7 +319,7 @@ func (d *DDC1155Service) DdcURI(ddcId int64) (ddcURI string, err error) {
 	ddcURI, err = handler.GetDDC1155().DdcURI(nil, big.NewInt(ddcId))
 	if err != nil {
 		log.Error.Printf("failed to execute DdcURI: %v", err.Error())
-		return "", types2.QueryError
+		return "", types2.NewSDKError(types2.QueryError.Error(),err.Error())
 	}
 
 	return ddcURI, nil
@@ -349,7 +349,7 @@ func (d *DDC1155Service) SetURI(opts *bind.TransactOpts, owner string, ddcId int
 	signedTx, err = handler.GetDDC1155().SetURI(opts, common.HexToAddress(owner), big.NewInt(ddcId), ddcURI)
 	if err != nil {
 		log.Error.Printf("failed to execute SetURI: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(),err.Error())
 	}
 
 	return signedTx, nil

@@ -25,7 +25,7 @@ func (t TxService) GetTransByHash(txHash string) (*types.Transaction, bool, erro
 	transaction, isPending, err := handler.GetConn().TransactionByHash(context.Background(), common.HexToHash(txHash))
 	if err != nil {
 		log.Error.Printf("failed to execute GetTransByHash: %v", err.Error())
-		return transaction, isPending, types2.QueryError
+		return transaction, isPending, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 	transaction.Data()
 
@@ -42,7 +42,7 @@ func (t TxService) GetTransReceipt(txHash string) (*types.Receipt, error) {
 	receipt, err := handler.GetConn().TransactionReceipt(context.Background(), common.HexToHash(txHash))
 	if err != nil {
 		log.Error.Printf("failed to execute GetTransReceipt: %v", err.Error())
-		return nil, types2.QueryError
+		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return receipt, nil
@@ -58,7 +58,7 @@ func (t TxService) GetTransStatus(txHash string) (bool, error) {
 	receipt, err := handler.GetConn().TransactionReceipt(context.Background(), common.HexToHash(txHash))
 	if err != nil {
 		log.Error.Printf("failed to execute GetTransStatus: %v", err.Error())
-		return false, types2.QueryError
+		return false, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	if receipt.Status == 0 {
@@ -78,12 +78,12 @@ func (t TxService) GetTimeByTxHash(txHash string) (uint64, error) {
 	receipt, err := handler.GetConn().TransactionReceipt(context.Background(), common.HexToHash(txHash))
 	if err != nil {
 		log.Error.Printf("failed to get TransactionReceipt: %v", err.Error())
-		return 0, types2.QueryError
+		return 0, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 	block, err := handler.GetConn().BlockByNumber(context.Background(), receipt.BlockNumber)
 	if err != nil {
 		log.Error.Printf("failed to execute BlockByNumber: %v", err.Error())
-		return 0, types2.QueryError
+		return 0, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return block.Time(), nil

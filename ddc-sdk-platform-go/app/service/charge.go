@@ -40,7 +40,7 @@ func (c *ChargeService) Recharge(opts *bind.TransactOpts, to string, amount int6
 	signedTx, err = handler.GetCharge().Recharge(opts, common.HexToAddress(to), big.NewInt(amount))
 	if err != nil {
 		log.Error.Printf("failed to execute Recharge: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(),err.Error())
 	}
 
 	return signedTx, nil
@@ -81,7 +81,7 @@ func (c *ChargeService) QueryFee(contrAddr string, sig [4]byte) (uint32, error) 
 	fee, err := handler.GetCharge().QueryFee(nil, common.HexToAddress(contrAddr), sig)
 	if err != nil {
 		log.Error.Printf("failed to execute QueryFee: %v", err.Error())
-		return 0, types2.QueryError
+		return 0, types2.NewSDKError(types2.QueryError.Error(),err.Error())
 	}
 
 	return fee, nil

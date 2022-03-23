@@ -12,10 +12,13 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/miguelmota/go-ethereum-hdwallet"
 	"github.com/status-im/keycard-go/hexutils"
+	"github.com/tyler-smith/go-bip39"
 
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/constant"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/handler"
+	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/models/dto"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/config"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/pkg/contracts"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/pkg/log"
@@ -230,4 +233,39 @@ func (b Base) EstimateGas(opts *bind.TransactOpts, contract *common.Address, inp
 	}
 
 	return handler.GetConn().EstimateGas(context.Background(), msg)
+}
+
+// CreateAccount
+// @Description:平台方或终端用户可以通过此方法生成离线账户
+// @receiver b
+// @return *dto.Account 返回的账户信息
+// @return error
+func (b Base) CreateAccount() (*dto.Account, error) {
+	entropy, err := bip39.NewEntropy(128)
+	if err != nil {
+		return nil, err
+	}
+	mnemonic, err := bip39.NewMnemonic(entropy)
+	if err != nil {
+		return nil, err
+	}
+	seed := bip39.NewSeed(mnemonic, "")
+
+	wallet, err := hdwallet.NewFromSeed(seed)
+	if err != nil {
+		return nil, err
+	}
+	path := hdwallet.MustParseDerivationPath("m/44'/60'/0'/0/0")
+	account, err := wallet.Derive(path, false)
+
+	privateKeyHex, err := wallet.PrivateKeyHex(account)
+	if err != nil {
+		return nil, err
+	}
+	publicKeyHex, err := wallet.PublicKeyHex(account)
+	if err != nil {
+		return nil, err
+	}
+
+	return dto.NewAccount(account.Address.Hex(), publicKeyHex, privateKeyHex, mnemonic), nil
 }

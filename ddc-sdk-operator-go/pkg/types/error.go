@@ -3,7 +3,7 @@ package types2
 import "fmt"
 
 const (
-	DDC = "DDC-SDK-Go"
+	DDC = "ddc-sdk-go"
 )
 
 var (
@@ -48,7 +48,7 @@ func NewAppError(codeSpace string, code string, desc string) *AppError {
 	return &AppError{codeSpace: codeSpace, code: code, desc: desc}
 }
 func (a *AppError) Error() string {
-	return "[" + a.codeSpace + "] " + a.code + " : " + a.desc
+	return a.desc
 }
 
 //记录已注册的error
@@ -70,4 +70,17 @@ func getAppError(codeSpace, code string) *AppError {
 //组装errorKey
 func errorKey(codeSpace, code string) string {
 	return fmt.Sprintf("%s:%s", codeSpace, code)
+}
+
+type SDKError struct {
+	codeSpace string
+	code      string
+	desc      string
+}
+
+func NewSDKError(code string, desc string) *SDKError {
+	return &SDKError{codeSpace: DDC, code: code, desc: desc}
+}
+func (a *SDKError) Error() string {
+	return "[" + a.codeSpace + "] " + a.code + " : " + a.desc
 }

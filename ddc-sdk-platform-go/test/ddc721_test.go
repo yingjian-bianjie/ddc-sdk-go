@@ -2,6 +2,7 @@ package test
 
 import (
 	"fmt"
+	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-platform-go/pkg/log"
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -13,6 +14,7 @@ func TestMint(t *testing.T) {
 	opts.From = common.HexToAddress(platform)
 	tx, err := ddc721Service.Mint(opts, platform, "www.123.com")
 	if err != nil {
+		log.Error.Println(err.Error())
 		return
 	}
 	fmt.Println(tx.Hash())

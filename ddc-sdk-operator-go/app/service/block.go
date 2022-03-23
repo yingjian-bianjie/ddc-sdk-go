@@ -31,7 +31,7 @@ func (b *BlockService) GetBlockByNumber(blockNumber int64) (*types.Block, error)
 	block, err := handler.GetConn().BlockByNumber(context.Background(), big.NewInt(blockNumber))
 	if err != nil {
 		log.Error.Printf("failed to execute GetBlockByNumber: %v", err.Error())
-		return nil, types2.QueryError
+		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return block, nil
@@ -49,7 +49,7 @@ func (b *BlockService) GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, e
 	block, err := handler.GetConn().BlockByNumber(context.Background(), big.NewInt(blockNumber))
 	if err != nil {
 		log.Error.Printf("failed to execute BlockByNumber: %v", err.Error())
-		return nil, types2.QueryError
+		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 	var blockEvents []interface{}
 	//查找每笔交易中的event
@@ -57,7 +57,7 @@ func (b *BlockService) GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, e
 		txEvents, err := b.GetTxEvents(tx.Hash())
 		if err != nil {
 			log.Error.Printf("failed to get events of Tx: %v,error: %v", tx.Hash(), err.Error())
-			return nil, types2.QueryError
+			return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 		}
 		blockEvents = append(blockEvents, txEvents)
 	}
@@ -77,7 +77,7 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 	receipt, err := handler.GetConn().TransactionReceipt(context.Background(), txHash)
 	if err != nil {
 		log.Error.Printf("failed to execute TransactionReceipt: %v", err.Error())
-		return nil, types2.QueryError
+		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 	var event interface{}
 	//获取交易的logs中的所有log对应的event

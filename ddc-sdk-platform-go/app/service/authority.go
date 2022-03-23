@@ -34,7 +34,7 @@ func (a *AuthorityService) GetAccount(account string) (*dto.AccountInfo, error) 
 	accDID, accName, accRole, leaderDID, platformState, operatorState, field, err := handler.GetAuthority().GetAccount(nil, common.HexToAddress(account))
 	if err != nil {
 		log.Error.Printf("failed to execute GetAccount: %v", err.Error())
-		return nil, types2.QueryError
+		return nil, types2.NewSDKError(types2.QueryError.Error(),err.Error())
 	}
 
 	return dto.NewAccountInfo(accDID, accName, accRole, leaderDID, platformState, operatorState, field), nil
@@ -59,7 +59,7 @@ func (a *AuthorityService) UpdateAccState(opts *bind.TransactOpts, account strin
 	signedTx, err = handler.GetAuthority().UpdateAccountState(opts, common.HexToAddress(account), state, changePlatformState)
 	if err != nil {
 		log.Error.Printf("failed to execute UpdateAccountState: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(),err.Error())
 	}
 
 	return signedTx, nil

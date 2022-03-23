@@ -40,7 +40,7 @@ func (c *ChargeService) Recharge(opts *bind.TransactOpts, to string, amount int6
 	signedTx, err = handler.GetCharge().Recharge(opts, common.HexToAddress(to), big.NewInt(amount))
 	if err != nil {
 		log.Error.Printf("failed to execute Recharge: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -81,7 +81,7 @@ func (c *ChargeService) QueryFee(contrAddr string, sig [4]byte) (uint32, error) 
 	fee, err := handler.GetCharge().QueryFee(nil, common.HexToAddress(contrAddr), sig)
 	if err != nil {
 		log.Error.Printf("failed to execute QueryFee: %v", err.Error())
-		return 0, types2.QueryError
+		return 0, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return fee, nil
@@ -103,7 +103,7 @@ func (c *ChargeService) SelfRecharge(opts *bind.TransactOpts, amount int64) (sig
 	signedTx, err = handler.GetCharge().SelfRecharge(opts, big.NewInt(amount))
 	if err != nil {
 		log.Error.Printf("failed to execute SelfRecharge: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -130,7 +130,7 @@ func (c *ChargeService) SetFee(opts *bind.TransactOpts, contrAddr string, sig [4
 	signedTx, err = handler.GetCharge().SetFee(opts, common.HexToAddress(contrAddr), sig, amount)
 	if err != nil {
 		log.Error.Printf("failed to execute SetFee: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -153,7 +153,7 @@ func (c *ChargeService) DelFee(opts *bind.TransactOpts, contrAddr string, sig [4
 	signedTx, err = handler.GetCharge().DelFee(opts, common.HexToAddress(contrAddr), sig)
 	if err != nil {
 		log.Error.Printf("failed to execute DelFee: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
@@ -175,7 +175,7 @@ func (c *ChargeService) DelDDC(opts *bind.TransactOpts, contrAddr string) (signe
 	signedTx, err = handler.GetCharge().DelDDC(opts, common.HexToAddress(contrAddr))
 	if err != nil {
 		log.Error.Printf("failed to execute DelDDC: %v", err.Error())
-		return nil, types2.TransactError
+		return nil, types2.NewSDKError(types2.TransactError.Error(), err.Error())
 	}
 
 	return signedTx, nil
