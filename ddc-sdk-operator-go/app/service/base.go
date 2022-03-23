@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/ecdsa"
 	"math/big"
+	"strings"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
@@ -267,5 +268,5 @@ func (b Base) CreateAccount() (*dto.Account, error) {
 		return nil, err
 	}
 
-	return dto.NewAccount(account.Address.Hex(), publicKeyHex, privateKeyHex, mnemonic), nil
+	return dto.NewAccount("0x"+strings.ToUpper(account.Address.Hex()[2:]), publicKeyHex, privateKeyHex, mnemonic), nil
 }

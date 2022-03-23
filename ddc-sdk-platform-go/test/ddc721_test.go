@@ -11,8 +11,8 @@ import (
 var ddc721Service = client.GetDDC721Service()
 
 func TestMint(t *testing.T) {
-	opts.From = common.HexToAddress(platform)
-	tx, err := ddc721Service.Mint(opts, platform, "www.123.com")
+	opts.From = common.HexToAddress(pl)
+	tx, err := ddc721Service.Mint(opts, genV1, "www.123.com")
 	if err != nil {
 		log.Error.Println(err.Error())
 		return
@@ -26,7 +26,7 @@ func TestSafeMint(t *testing.T) {
 }
 
 func TestDDC721BalanceOf(t *testing.T) {
-	fmt.Println(ddc721Service.BalanceOf(platform))
+	fmt.Println(ddc721Service.BalanceOf(genV1))
 }
 
 func TestApprove(t *testing.T) {
@@ -42,8 +42,9 @@ func TestIsApprovedForAll(t *testing.T) {
 }
 
 func TestTransferFrom(t *testing.T) {
-	opts.From = common.HexToAddress(platform)
-	fmt.Println(ddc721Service.TransferFrom(opts, platform, v2, 5))
+	opts.From = common.HexToAddress(genV1)
+	opts.GasLimit=1e6
+	fmt.Println(ddc721Service.TransferFrom(opts, genV1, pl, 102))
 }
 
 func TestSafeTransferFrom(t *testing.T) {
@@ -52,7 +53,7 @@ func TestSafeTransferFrom(t *testing.T) {
 }
 
 func TestOwnerOf(t *testing.T) {
-	fmt.Println(ddc721Service.OwnerOf(7))
+	fmt.Println(ddc721Service.OwnerOf(102))
 }
 
 func TestDDCURI(t *testing.T) {

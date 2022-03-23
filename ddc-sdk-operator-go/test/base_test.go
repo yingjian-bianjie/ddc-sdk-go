@@ -2,9 +2,9 @@ package test
 
 import (
 	"fmt"
-	"testing"
-
 	"github.com/ethereum/go-ethereum/common"
+	"testing"
+	"time"
 
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/constant"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/service"
@@ -29,4 +29,11 @@ func TestAddrToBeach32(t *testing.T) {
 		return
 	}
 	fmt.Println(bech32)
+}
+func TestConn(t *testing.T) {
+	base := service.Base{}
+	fmt.Println(base.DDCIdByHash("0xc806461847abf17c899a027edddeaa8c0ea57b64f10580f63c1c385f9aa3b282"))
+
+	time.Sleep(time.Minute * 10)
+	fmt.Println(ddc721Service.BalanceOf(platform))
 }

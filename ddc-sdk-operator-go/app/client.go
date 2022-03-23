@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/handler"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/listener"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/service"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/config"
@@ -132,5 +133,7 @@ func (d *DDCSdkClientBuilder) Build() *DDCSdkClient {
 		d.client.ddc1155Address)
 	//设置logFile
 	log.RegisterLog(d.client.logFile)
+
+	config.Info.SetConn(handler.GetConn())
 	return d.client
 }

@@ -13,10 +13,10 @@ var authorityService = client.GetAuthorityService()
 
 func TestAddConsumerByOperator(t *testing.T) {
 	opts.From = common.HexToAddress(operator)
-	fmt.Println(authorityService.AddAccountByOperator(opts, platform, "ddcplatform", "did:ddcplatform", ""))
+	fmt.Println(authorityService.AddAccountByOperator(opts, genV1, "gentest", "did:gentest", "did:ddcplatform"))
 }
 func TestGetAccount(t *testing.T) {
-	fmt.Println(authorityService.GetAccount(platform))
+	fmt.Println(authorityService.GetAccount(genV1))
 }
 func TestAddFunction(t *testing.T) {
 	opts.From = common.HexToAddress(operator)

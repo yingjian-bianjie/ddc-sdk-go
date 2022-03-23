@@ -10,7 +10,7 @@ import (
 var ddc721Service = client.GetDDC721Service()
 
 func TestDDC721BalanceOf(t *testing.T) {
-	fmt.Println(ddc721Service.BalanceOf(platform))
+	fmt.Println(ddc721Service.BalanceOf(pl))
 }
 
 func TestApprove(t *testing.T) {
@@ -27,8 +27,8 @@ func TestIsApprovedForAll(t *testing.T) {
 }
 
 func TestTransferFrom(t *testing.T) {
-	opts.From = common.HexToAddress(platform)
-	transaction, err := ddc721Service.TransferFrom(opts, platform, platform, 17)
+	opts.From = common.HexToAddress(pl)
+	transaction, err := ddc721Service.TransferFrom(opts, platform, genV1, 17)
 	if err != nil {
 		return
 	}
@@ -37,7 +37,7 @@ func TestTransferFrom(t *testing.T) {
 
 func TestSafeTransferFrom(t *testing.T) {
 	opts.From = common.HexToAddress(platform)
-	fmt.Println(ddc721Service.SafeTransferFrom(opts, platform, v2, 5, []byte{}))
+	fmt.Println(ddc721Service.SafeTransferFrom(opts, platform, genV1, 17, []byte{}))
 }
 
 func TestFreeze(t *testing.T) {
