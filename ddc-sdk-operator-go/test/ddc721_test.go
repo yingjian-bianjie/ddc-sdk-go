@@ -46,7 +46,7 @@ func TestFreeze(t *testing.T) {
 }
 
 func TestOwnerOf(t *testing.T) {
-	owner, err := ddc721Service.OwnerOf(7)
+	owner, err := ddc721Service.OwnerOf(63)
 	if err != nil {
 		fmt.Println(err)
 		return

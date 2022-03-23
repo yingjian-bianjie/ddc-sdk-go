@@ -16,7 +16,7 @@ func TestAddConsumerByOperator(t *testing.T) {
 	fmt.Println(authorityService.AddAccountByOperator(opts, platform, "ddcplatform", "did:ddcplatform", ""))
 }
 func TestGetAccount(t *testing.T) {
-	fmt.Println(authorityService.GetAccount(platform))
+	fmt.Println(authorityService.GetAccount("0x2F4AB3D3D827E61D71BDCF33A5C52090BBE7F0C9"))
 }
 func TestAddFunction(t *testing.T) {
 	//safeMint

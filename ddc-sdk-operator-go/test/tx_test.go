@@ -12,5 +12,5 @@ func TestGetTransReceipt(t *testing.T) {
 	fmt.Println(client.GetTransReceipt("0x10e8d4e5f30b05d268b1b61ba89d85d8c8010153b21db00efe14f4656bf0b92b"))
 }
 func TestGetTransStatus(t *testing.T) {
-	fmt.Println(client.GetTransStatus("0xc848f2cd49658cca7963c13d9218872bc667d3d0c4f8d1fc6ffb14df3cd029c7"))
+	fmt.Println(client.GetTransStatus("0xe0767e9c202bbdcf1420cd7cd3314f29baeb9a470c95db1c435697f39564f58c"))
 }
