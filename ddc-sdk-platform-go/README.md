@@ -10,6 +10,7 @@
     - [6.BSN-DDC-交易查询](#6bsn-ddc-交易查询)
     - [7.BSN-DDC-区块查询](#7bsn-ddc-区块查询)
     - [8.BSN-DDC-数据解析](#8bsn-ddc-数据解析)
+    - [9.离线账户创建](#9离线账户创建)
   - [平台方可调用的如下方法：](#平台方可调用的如下方法)
     - [1.初始化Client (连接测试网)](#1初始化client-连接测试网-1)
     - [2.BSN-DDC-权限管理](#2bsn-ddc-权限管理-1)
@@ -19,6 +20,7 @@
     - [6.BSN-DDC-交易查询](#6bsn-ddc-交易查询-1)
     - [7.BSN-DDC-区块查询](#7bsn-ddc-区块查询-1)
     - [8.BSN-DDC-数据解析](#8bsn-ddc-数据解析-1)
+    - [9.离线账户创建](#9离线账户创建-1)
   - [终端用户可调用的如下方法：](#终端用户可调用的如下方法)
     - [1.初始化Client (连接测试网)](#1初始化client-连接测试网-2)
     - [2.BSN-DDC-权限管理](#2bsn-ddc-权限管理-2)
@@ -28,6 +30,7 @@
     - [6.BSN-DDC-交易查询](#6bsn-ddc-交易查询-2)
     - [7.BSN-DDC-区块查询](#7bsn-ddc-区块查询-2)
     - [8.BSN-DDC-数据解析](#8bsn-ddc-数据解析-2)
+    - [9.离线账户创建](#9离线账户创建-2)
   - [测试用例](#测试用例)
 
 ## 运营方可调用的如下方法：
@@ -585,6 +588,18 @@ GetTxEvents(txHash common.Hash) (events []interface{}, err error)
 GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error)
 ```
 
+### 9.离线账户创建
+
+使用client或任意service即可调用以下方法：
+```go
+// CreateAccount
+// @Description:平台方或终端用户可以通过此方法生成离线账户
+// @receiver b
+// @return *dto.Account 返回的账户信息
+// @return error
+CreateAccount() (*dto.Account, error)
+```
+
 ## 平台方可调用的如下方法：
 
 ### 1.初始化Client (连接测试网)
@@ -1065,6 +1080,17 @@ GetTxEvents(txHash common.Hash) (events []interface{}, err error)
 // @return error
 GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error)
 ```
+### 9.离线账户创建
+
+使用client或任意service即可调用以下方法：
+```go
+// CreateAccount
+// @Description:平台方或终端用户可以通过此方法生成离线账户
+// @receiver b
+// @return *dto.Account 返回的账户信息
+// @return error
+CreateAccount() (*dto.Account, error)
+```
 
 ## 终端用户可调用的如下方法：
 
@@ -1523,6 +1549,17 @@ GetTxEvents(txHash common.Hash) (events []interface{}, err error)
 // @return *dto.BlockEventBean 事件和时间戳的实体
 // @return error
 GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error)
+```
+### 9.离线账户创建
+
+使用client或任意service即可调用以下方法：
+```go
+// CreateAccount
+// @Description:平台方或终端用户可以通过此方法生成离线账户
+// @receiver b
+// @return *dto.Account 返回的账户信息
+// @return error
+CreateAccount() (*dto.Account, error)
 ```
 
 ## 测试用例
