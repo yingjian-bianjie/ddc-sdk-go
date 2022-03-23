@@ -1,6 +1,6 @@
-# DDC-SDK-JAVA
+# DDC-SDK-GoLang
 
-- [DDC-SDK-JAVA](#ddc-sdk-java)
+- [DDC-SDK-GoLang](#ddc-sdk-go)
   - [运营方可调用的如下方法：](#运营方可调用的如下方法)
     - [1.初始化Client (连接测试网)](#1初始化client-连接测试网)
     - [2.BSN-DDC-权限管理](#2bsn-ddc-权限管理)
