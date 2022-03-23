@@ -77,7 +77,8 @@ type SDKError struct {
 	code      string
 	desc      string
 }
-func NewSDKError( code string, desc string) *SDKError {
+
+func NewSDKError(code string, desc string) *SDKError {
 	return &SDKError{codeSpace: DDC, code: code, desc: desc}
 }
 func (a *SDKError) Error() string {

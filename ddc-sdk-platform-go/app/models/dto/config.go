@@ -1,11 +1,14 @@
 package dto
 
 import (
-	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-platform-go/app/listener"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/ethclient"
+
+	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-platform-go/app/listener"
 )
 
 type ConfigInfo struct {
+	conn              *ethclient.Client
 	opbGatewayAddress string
 	headerKey         string
 	headerValue       string
@@ -19,6 +22,14 @@ type ConfigInfo struct {
 
 func NewConfigInfo() *ConfigInfo {
 	return &ConfigInfo{}
+}
+
+func (c *ConfigInfo) Conn() *ethclient.Client {
+	return c.conn
+}
+
+func (c *ConfigInfo) SetConn(conn *ethclient.Client) {
+	c.conn = conn
 }
 
 func (c *ConfigInfo) OpbGatewayAddress() string {

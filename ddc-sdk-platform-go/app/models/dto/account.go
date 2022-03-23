@@ -1,9 +1,10 @@
 package dto
-type Account struct{
-	address string
-	publicKey string
+
+type Account struct {
+	address    string
+	publicKey  string
 	privateKey string
-	mnemonic string
+	mnemonic   string
 }
 
 func (a *Account) Address() string {
@@ -41,4 +42,3 @@ func (a *Account) Mnemonic() string {
 func (a *Account) SetMnemonic(mnemonic string) {
 	a.mnemonic = mnemonic
 }
-
