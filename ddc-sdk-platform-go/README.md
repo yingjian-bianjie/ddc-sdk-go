@@ -593,7 +593,7 @@ GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error)
 使用client或任意service即可调用以下方法：
 ```go
 // CreateAccount
-// @Description:平台方或终端用户可以通过此方法生成离线账户
+// @Description:可以通过此方法生成离线账户
 // @receiver b
 // @return *dto.Account 返回的账户信息
 // @return error
@@ -1085,7 +1085,7 @@ GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error)
 使用client或任意service即可调用以下方法：
 ```go
 // CreateAccount
-// @Description:平台方或终端用户可以通过此方法生成离线账户
+// @Description:可以通过此方法生成离线账户
 // @receiver b
 // @return *dto.Account 返回的账户信息
 // @return error
@@ -1555,7 +1555,7 @@ GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error)
 使用client或任意service即可调用以下方法：
 ```go
 // CreateAccount
-// @Description:平台方或终端用户可以通过此方法生成离线账户
+// @Description:可以通过此方法生成离线账户
 // @receiver b
 // @return *dto.Account 返回的账户信息
 // @return error
