@@ -1,8 +1,9 @@
 package dto
 
 import (
-	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/listener"
 	"github.com/ethereum/go-ethereum/common"
+
+	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/listener"
 )
 
 type ConfigInfo struct {

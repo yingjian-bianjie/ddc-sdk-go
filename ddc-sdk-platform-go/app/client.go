@@ -132,5 +132,6 @@ func (d *DDCSdkClientBuilder) Build() *DDCSdkClient {
 		d.client.ddc1155Address)
 	//设置logFile
 	log.RegisterLog(d.client.logFile)
+
 	return d.client
 }
