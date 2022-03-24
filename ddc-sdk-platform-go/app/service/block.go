@@ -28,7 +28,7 @@ type BlockService struct {
 // @return error
 func (b *BlockService) GetBlockByNumber(blockNumber int64) (*types.Block, error) {
 
-	block, err := handler.GetConn().BlockByNumber(context.Background(), big.NewInt(blockNumber))
+	block, err := config.Info.Conn().BlockByNumber(context.Background(), big.NewInt(blockNumber))
 	if err != nil {
 		log.Error.Printf("failed to execute GetBlockByNumber: %v", err.Error())
 		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -46,7 +46,7 @@ func (b *BlockService) GetBlockByNumber(blockNumber int64) (*types.Block, error)
 func (b *BlockService) GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error) {
 
 	//查找区块中所有交易
-	block, err := handler.GetConn().BlockByNumber(context.Background(), big.NewInt(blockNumber))
+	block, err := config.Info.Conn().BlockByNumber(context.Background(), big.NewInt(blockNumber))
 	if err != nil {
 		log.Error.Printf("failed to execute BlockByNumber: %v", err.Error())
 		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -74,7 +74,7 @@ func (b *BlockService) GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, e
 // @return err
 func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, err error) {
 	//获取对应的交易回执
-	receipt, err := handler.GetConn().TransactionReceipt(context.Background(), txHash)
+	receipt, err := config.Info.Conn().TransactionReceipt(context.Background(), txHash)
 	if err != nil {
 		log.Error.Printf("failed to execute TransactionReceipt: %v", err.Error())
 		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())

@@ -17,7 +17,6 @@ import (
 	"github.com/tyler-smith/go-bip39"
 
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/constant"
-	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/handler"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/app/models/dto"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/config"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/pkg/contracts"
@@ -54,7 +53,7 @@ func (b Base) SetOpts(opts *bind.TransactOpts) {
 // @return uint64 最新nonce
 // @return error
 func (b Base) GetNonce(addr common.Address) (uint64, error) {
-	nonce, err := handler.GetConn().PendingNonceAt(context.Background(), addr)
+	nonce, err := config.Info.Conn().PendingNonceAt(context.Background(), addr)
 	if err != nil {
 		log.Error.Printf("failed to GetNonce: %v", err.Error())
 		return 0, err
@@ -216,7 +215,7 @@ func (b Base) EstimateGasLimit(opts *bind.TransactOpts, contrName, funcName stri
 func (b Base) EstimateGas(opts *bind.TransactOpts, contract *common.Address, input []byte) (uint64, error) {
 	if contract != nil {
 		// Gas estimation cannot succeed without code for method invocations.
-		if code, err := handler.GetConn().PendingCodeAt(context.Background(), *contract); err != nil {
+		if code, err := config.Info.Conn().PendingCodeAt(context.Background(), *contract); err != nil {
 			return 0, err
 		} else if len(code) == 0 {
 			return 0, bind.ErrNoCode
@@ -232,7 +231,7 @@ func (b Base) EstimateGas(opts *bind.TransactOpts, contract *common.Address, inp
 		Data:      input,
 	}
 
-	return handler.GetConn().EstimateGas(context.Background(), msg)
+	return config.Info.Conn().EstimateGas(context.Background(), msg)
 }
 
 // CreateAccount
