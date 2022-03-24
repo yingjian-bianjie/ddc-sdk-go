@@ -3,6 +3,6 @@
 
 Golang SDK for BSN DDC
 
-If you are an operator, you can use : [ddc-sdk-operator-go](https://github.com/bianjieai/ddc-sdk-go/tree/master/ddc-sdk-operator-go)
+If you are an operator, you can use : [ddc-sdk-operator-go](ddc-sdk-operator-go)
 
-Otherwise, you can use : [ddc-sdk-platform-go](https://github.com/bianjieai/ddc-sdk-go/tree/master/ddc-sdk-platform-go)
+Otherwise, you can use : [ddc-sdk-platform-go](ddc-sdk-platform-go)
