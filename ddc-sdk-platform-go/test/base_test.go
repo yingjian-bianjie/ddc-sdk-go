@@ -17,7 +17,7 @@ func TestEstimateGasLimit(t *testing.T) {
 }
 func TestGetDDCId(t *testing.T) {
 	base := service.Base{}
-	fmt.Println(base.DDCIdByHash("0xcf6cf155ccfc4a292341878183f479f609500961b978db9c2aac595645a0d27d"))
+	fmt.Println(base.DDCIdByHash("0xcc8e426ef38c621aa05624d0ed716b34b083ff6fc537d92bdb9b3dcc7e15f284"))
 }
 func TestCreateAccount(t *testing.T) {
 	base := service.Base{}

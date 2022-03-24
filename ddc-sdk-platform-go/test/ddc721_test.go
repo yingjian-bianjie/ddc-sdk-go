@@ -22,7 +22,7 @@ func TestMint(t *testing.T) {
 
 func TestSafeMint(t *testing.T) {
 	opts.From = common.HexToAddress(platform)
-	transaction, err := ddc721Service.SafeMint(opts, "0x83F3B42F4E1795999089FAB8F117DAB18A496577", "www.123.com", []byte{})
+	transaction, err := ddc721Service.SafeMint(opts, platform, "www.123.com", []byte{})
 	if err != nil {
 		return
 	}

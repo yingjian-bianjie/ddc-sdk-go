@@ -128,6 +128,9 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 		case config.Info.Ddc721Address():
 			{
 				fmt.Println("++++++++++++++++++++++++")
+				for _, t := range l.Topics {
+					fmt.Println(t.Hex())
+				}
 				fmt.Println("get:" + l.Topics[0].Hex()) //0xd1398bee19313d6bf672ccb116e51f4a1a947e91c757907f51fbb5b5e56c698f
 
 				ddc721 := handler.GetDDC721()
