@@ -47,7 +47,7 @@
     //可设置项如下：
     client        = clientBuilder.
         SetSignEventListener(new(SignListener)).//注册实现了签名接口的结构体
-        SetGasPrice(1e10).//建议设置gasPrice>=1e10
+        SetGasPrice(1e10).//建议设置gasPrice
         SetGatewayUrl("https://opbtest.bsngate.com:18602/api/0e346e1fb134477cafb6c6c2583ce3c4/evmrpc").
         SetGatewayApiKey("903f4f9268ab4e2eac717c7200429776").
         SetGatewayApiValue("0c1dd14a41b14cfa83048d839a0593ff").
@@ -616,7 +616,7 @@ CreateAccount() (*dto.Account, error)
     //可设置项如下：
     client        = clientBuilder.
         SetSignEventListener(new(SignListener)).//注册实现了签名接口的结构体
-        SetGasPrice(1e10).//建议设置gasPrice>=1e10
+        SetGasPrice(1e10).//建议设置gasPrice
         SetGatewayUrl("https://opbtest.bsngate.com:18602/api/0e346e1fb134477cafb6c6c2583ce3c4/evmrpc").
         SetGatewayApiKey("903f4f9268ab4e2eac717c7200429776").
         SetGatewayApiValue("0c1dd14a41b14cfa83048d839a0593ff").
@@ -1110,7 +1110,7 @@ CreateAccount() (*dto.Account, error)
     //可设置项如下：
     client        = clientBuilder.
         SetSignEventListener(new(SignListener)).//注册实现了签名接口的结构体
-        SetGasPrice(1e10).//建议设置gasPrice>=1e10
+        SetGasPrice(1e10).//建议设置gasPrice
         SetGatewayUrl("https://opbtest.bsngate.com:18602/api/0e346e1fb134477cafb6c6c2583ce3c4/evmrpc").
         SetGatewayApiKey("903f4f9268ab4e2eac717c7200429776").
         SetGatewayApiValue("0c1dd14a41b14cfa83048d839a0593ff").

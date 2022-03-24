@@ -2,11 +2,11 @@ package service
 
 import (
 	"context"
+	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-platform-go/config"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-platform-go/app/handler"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-platform-go/pkg/log"
 	types2 "github.com/bianjieai/ddc-sdk-go/ddc-sdk-platform-go/pkg/types"
 )
@@ -22,7 +22,7 @@ type TxService struct {
 // @return bool： pending状态
 // @return error
 func (t TxService) GetTransByHash(txHash string) (*types.Transaction, bool, error) {
-	transaction, isPending, err := handler.GetConn().TransactionByHash(context.Background(), common.HexToHash(txHash))
+	transaction, isPending, err := config.Info.Conn().TransactionByHash(context.Background(), common.HexToHash(txHash))
 	if err != nil {
 		log.Error.Printf("failed to execute GetTransByHash: %v", err.Error())
 		return transaction, isPending, types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -39,7 +39,7 @@ func (t TxService) GetTransByHash(txHash string) (*types.Transaction, bool, erro
 // @return string： 交易回执
 // @return error
 func (t TxService) GetTransReceipt(txHash string) (*types.Receipt, error) {
-	receipt, err := handler.GetConn().TransactionReceipt(context.Background(), common.HexToHash(txHash))
+	receipt, err := config.Info.Conn().TransactionReceipt(context.Background(), common.HexToHash(txHash))
 	if err != nil {
 		log.Error.Printf("failed to execute GetTransReceipt: %v", err.Error())
 		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -55,7 +55,7 @@ func (t TxService) GetTransReceipt(txHash string) (*types.Receipt, error) {
 // @return bool：交易是否成功
 // @return error
 func (t TxService) GetTransStatus(txHash string) (bool, error) {
-	receipt, err := handler.GetConn().TransactionReceipt(context.Background(), common.HexToHash(txHash))
+	receipt, err := config.Info.Conn().TransactionReceipt(context.Background(), common.HexToHash(txHash))
 	if err != nil {
 		log.Error.Printf("failed to execute GetTransStatus: %v", err.Error())
 		return false, types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -75,12 +75,12 @@ func (t TxService) GetTransStatus(txHash string) (bool, error) {
 // @return uint64 所在块的时间
 // @return error
 func (t TxService) GetTimeByTxHash(txHash string) (uint64, error) {
-	receipt, err := handler.GetConn().TransactionReceipt(context.Background(), common.HexToHash(txHash))
+	receipt, err := config.Info.Conn().TransactionReceipt(context.Background(), common.HexToHash(txHash))
 	if err != nil {
 		log.Error.Printf("failed to get TransactionReceipt: %v", err.Error())
 		return 0, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
-	block, err := handler.GetConn().BlockByNumber(context.Background(), receipt.BlockNumber)
+	block, err := config.Info.Conn().BlockByNumber(context.Background(), receipt.BlockNumber)
 	if err != nil {
 		log.Error.Printf("failed to execute BlockByNumber: %v", err.Error())
 		return 0, types2.NewSDKError(types2.QueryError.Error(), err.Error())
