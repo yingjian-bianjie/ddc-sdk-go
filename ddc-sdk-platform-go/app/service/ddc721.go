@@ -31,7 +31,7 @@ func NewDDC721Service() *DDC721Service {
 func (d *DDC721Service) Mint(opts *bind.TransactOpts, to, ddcURI string) (signedTx *types.Transaction, err error) {
 
 	//检查接收者账户地址格式是否正确
-	if !common.IsHexAddress(to) {
+	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 
@@ -58,7 +58,7 @@ func (d *DDC721Service) Mint(opts *bind.TransactOpts, to, ddcURI string) (signed
 // @return signedTx 签名好的交易
 // @return error
 func (d *DDC721Service) SafeMint(opts *bind.TransactOpts, to, ddcURI string, data []byte) (signedTx *types.Transaction, err error) {
-	if !common.IsHexAddress(to) {
+	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 
@@ -83,7 +83,7 @@ func (d *DDC721Service) SafeMint(opts *bind.TransactOpts, to, ddcURI string, dat
 // @return error
 func (d *DDC721Service) Approve(opts *bind.TransactOpts, to string, ddcId int64) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(to) {
+	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 	if ddcId <= 0 {
@@ -131,7 +131,7 @@ func (d *DDC721Service) GetApprove(ddcId int64) (string, error) {
 // @return error
 func (d *DDC721Service) SetApprovalForAll(opts *bind.TransactOpts, operator string, approved bool) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(operator) {
+	if common.HexToAddress(operator)==common.HexToAddress("0")||!common.IsHexAddress(operator) {
 		return nil, types2.OperatorAccountError
 	}
 
@@ -154,10 +154,10 @@ func (d *DDC721Service) SetApprovalForAll(opts *bind.TransactOpts, operator stri
 // @return bool 授权标识
 // @return error
 func (d *DDC721Service) IsApprovedForAll(owner, operator string) (bool, error) {
-	if !common.IsHexAddress(owner) {
+	if common.HexToAddress(owner)==common.HexToAddress("0")||!common.IsHexAddress(owner) {
 		return false, types2.OwnerAccountError
 	}
-	if !common.IsHexAddress(operator) {
+	if common.HexToAddress(operator)==common.HexToAddress("0")||!common.IsHexAddress(operator) {
 		return false, types2.OperatorAccountError
 	}
 
@@ -181,10 +181,10 @@ func (d *DDC721Service) IsApprovedForAll(owner, operator string) (bool, error) {
 // @return signedTx 签名好的交易
 // @return error
 func (d *DDC721Service) SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcId int64, data []byte) (signedTx *types.Transaction, err error) {
-	if !common.IsHexAddress(from) {
+	if common.HexToAddress(from)==common.HexToAddress("0")||!common.IsHexAddress(from) {
 		return nil, types2.FromAccountError
 	}
-	if !common.IsHexAddress(to) {
+	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 	if ddcId <= 0 {
@@ -213,10 +213,10 @@ func (d *DDC721Service) SafeTransferFrom(opts *bind.TransactOpts, from, to strin
 // @return error
 func (d *DDC721Service) TransferFrom(opts *bind.TransactOpts, from, to string, ddcId int64) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(from) {
+	if common.HexToAddress(from)==common.HexToAddress("0")||!common.IsHexAddress(from) {
 		return nil, types2.FromAccountError
 	}
-	if !common.IsHexAddress(to) {
+	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 	if ddcId <= 0 {
@@ -265,7 +265,7 @@ func (d *DDC721Service) Burn(opts *bind.TransactOpts, ddcId int64) (signedTx *ty
 // @return uint64 ddc的数量
 // @return error
 func (d *DDC721Service) BalanceOf(owner string) (uint64, error) {
-	if !common.IsHexAddress(owner) {
+	if common.HexToAddress(owner)==common.HexToAddress("0")||!common.IsHexAddress(owner) {
 		return 0, types2.OwnerAccountError
 	}
 

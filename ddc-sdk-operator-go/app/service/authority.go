@@ -31,7 +31,7 @@ func NewAuthorityService() *AuthorityService {
 // @return error
 func (a *AuthorityService) AddAccountByOperator(opts *bind.TransactOpts, account, accName, accDID, leaderDID string) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(account) {
+	if common.HexToAddress(account) == common.HexToAddress("0") || !common.IsHexAddress(account) {
 		return nil, types2.AccountError
 	}
 	if len(accName) == 0 {
@@ -56,7 +56,7 @@ func (a *AuthorityService) AddAccountByOperator(opts *bind.TransactOpts, account
 // @return error
 func (a *AuthorityService) GetAccount(account string) (*dto.AccountInfo, error) {
 
-	if !common.IsHexAddress(account) {
+	if common.HexToAddress(account) == common.HexToAddress("0") || !common.IsHexAddress(account) {
 		return nil, types2.AccountError
 	}
 
@@ -80,7 +80,7 @@ func (a *AuthorityService) GetAccount(account string) (*dto.AccountInfo, error) 
 // @return error
 func (a *AuthorityService) UpdateAccState(opts *bind.TransactOpts, account string, state uint8, changePlatformState bool) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(account) {
+	if common.HexToAddress(account) == common.HexToAddress("0") || !common.IsHexAddress(account) {
 		return nil, types2.AccountError
 	}
 
@@ -105,10 +105,10 @@ func (a *AuthorityService) UpdateAccState(opts *bind.TransactOpts, account strin
 // @return error
 func (a *AuthorityService) CrossPlatformApproval(opts *bind.TransactOpts, from, to string, approved bool) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(from) {
+	if common.HexToAddress(from) == common.HexToAddress("0") || !common.IsHexAddress(from) {
 		return nil, types2.FromAccountError
 	}
-	if !common.IsHexAddress(to) {
+	if common.HexToAddress(to) == common.HexToAddress("0") || !common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 

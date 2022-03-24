@@ -30,7 +30,7 @@ func NewDDC1155Service() *DDC1155Service {
 // @return error
 func (d *DDC1155Service) SetApprovalForAll(opts *bind.TransactOpts, operator string, approved bool) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(operator) {
+	if common.HexToAddress(operator) == common.HexToAddress("0") || !common.IsHexAddress(operator) {
 		return nil, types2.OperatorAccountError
 	}
 
@@ -52,10 +52,10 @@ func (d *DDC1155Service) SetApprovalForAll(opts *bind.TransactOpts, operator str
 // @return bool 授权标识
 // @return error
 func (d *DDC1155Service) IsApprovedForAll(owner, operator string) (bool, error) {
-	if !common.IsHexAddress(owner) {
+	if common.HexToAddress(owner) == common.HexToAddress("0") || !common.IsHexAddress(owner) {
 		return false, types2.OwnerAccountError
 	}
-	if !common.IsHexAddress(operator) {
+	if common.HexToAddress(operator) == common.HexToAddress("0") || !common.IsHexAddress(operator) {
 		return false, types2.OperatorAccountError
 	}
 
@@ -81,10 +81,10 @@ func (d *DDC1155Service) IsApprovedForAll(owner, operator string) (bool, error) 
 // @return error
 func (d *DDC1155Service) SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcId, amount int64, data []byte) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(from) {
+	if common.HexToAddress(from) == common.HexToAddress("0") || !common.IsHexAddress(from) {
 		return nil, types2.FromAccountError
 	}
-	if !common.IsHexAddress(to) {
+	if common.HexToAddress(to) == common.HexToAddress("0") || !common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 	if ddcId <= 0 {
@@ -116,10 +116,10 @@ func (d *DDC1155Service) SafeTransferFrom(opts *bind.TransactOpts, from, to stri
 // @return error
 func (d *DDC1155Service) SafeBatchTransferFrom(opts *bind.TransactOpts, from, to string, ddcInfo map[int64]int64, data []byte) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(from) {
+	if common.HexToAddress(from) == common.HexToAddress("0") || !common.IsHexAddress(from) {
 		return nil, types2.FromAccountError
 	}
-	if !common.IsHexAddress(to) {
+	if common.HexToAddress(to) == common.HexToAddress("0") || !common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 	var ddcIds []*big.Int
@@ -201,7 +201,7 @@ func (d *DDC1155Service) UnFreeze(opts *bind.TransactOpts, ddcId int64) (signedT
 // @return error
 func (d *DDC1155Service) Burn(opts *bind.TransactOpts, owner string, ddcId int64) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(owner) {
+	if common.HexToAddress(owner) == common.HexToAddress("0") || !common.IsHexAddress(owner) {
 		return nil, types2.OwnerAccountError
 	}
 	if ddcId <= 0 {
@@ -228,7 +228,7 @@ func (d *DDC1155Service) Burn(opts *bind.TransactOpts, owner string, ddcId int64
 // @return error
 func (d *DDC1155Service) BurnBatch(opts *bind.TransactOpts, owner string, ddcIds []int64) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(owner) {
+	if common.HexToAddress(owner) == common.HexToAddress("0") || !common.IsHexAddress(owner) {
 		return nil, types2.OwnerAccountError
 	}
 	if len(ddcIds) == 0 {
@@ -260,7 +260,7 @@ func (d *DDC1155Service) BurnBatch(opts *bind.TransactOpts, owner string, ddcIds
 // @return uint64 ddcId对应的数量
 // @return error
 func (d *DDC1155Service) BalanceOf(owner string, ddcId int64) (uint64, error) {
-	if !common.IsHexAddress(owner) {
+	if common.HexToAddress(owner) == common.HexToAddress("0") || !common.IsHexAddress(owner) {
 		return 0, types2.OwnerAccountError
 	}
 	if ddcId <= 0 {
@@ -324,7 +324,7 @@ func (d *DDC1155Service) DdcURI(ddcId int64) (ddcURI string, err error) {
 // @return error
 func (d *DDC1155Service) SetURI(opts *bind.TransactOpts, owner string, ddcId int64, ddcURI string) (signedTx *types.Transaction, err error) {
 
-	if !common.IsHexAddress(owner) {
+	if common.HexToAddress(owner) == common.HexToAddress("0") || !common.IsHexAddress(owner) {
 		return nil, types2.OwnerAccountError
 	}
 	if ddcId <= 0 {

@@ -29,7 +29,7 @@ func NewChargeService() *ChargeService {
 // @return signedTx 签名好的交易
 // @return error
 func (c *ChargeService) Recharge(opts *bind.TransactOpts, to string, amount int64) (signedTx *types.Transaction, err error) {
-	if !common.IsHexAddress(to) {
+	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 	if amount <= 0 {
@@ -53,7 +53,7 @@ func (c *ChargeService) Recharge(opts *bind.TransactOpts, to string, amount int6
 // @return uint64 账户所对应的业务费余额
 // @return error
 func (c *ChargeService) BalanceOf(accAddr string) (uint64, error) {
-	if !common.IsHexAddress(accAddr) {
+	if common.HexToAddress(accAddr)==common.HexToAddress("0")||!common.IsHexAddress(accAddr) {
 		return 0, types2.AccountError
 	}
 
@@ -74,7 +74,7 @@ func (c *ChargeService) BalanceOf(accAddr string) (uint64, error) {
 // @return error
 func (c *ChargeService) QueryFee(contrAddr string, sig [4]byte) (uint32, error) {
 
-	if !common.IsHexAddress(contrAddr) {
+	if common.HexToAddress(contrAddr)==common.HexToAddress("0")||!common.IsHexAddress(contrAddr) {
 		return 0, types2.ContractAddressError
 	}
 
