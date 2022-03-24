@@ -1,5 +1,8 @@
 # DDC-SDK-GoLang
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go)](https://goreportcard.com/report/github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go)
+[![License：Apache](https://camo.githubusercontent.com/13258d937f88709447768f3df4a63170ec889e741d0feaa1d5b2c3f8536dc567/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f697269736e65742f697269736875622e737667)](https://www.apache.org/licenses/LICENSE-2.0)
+
 - [DDC-SDK-GoLang](#ddc-sdk-go)
   - [运营方可调用的如下方法：](#运营方可调用的如下方法)
     - [1.初始化Client (连接测试网)](#1初始化client-连接测试网)
@@ -46,7 +49,9 @@
         SetSignEventListener(new(SignListener)).//注册实现了签名接口的结构体
         SetGasPrice(1e10).//建议设置gasPrice>=1e10
         SetGatewayUrl("https://opbtest.bsngate.com:18602/api/0e346e1fb134477cafb6c6c2583ce3c4/evmrpc").
-        SetAuthorityAddress("0xa7FC5B0F4A0085c5Ce689b919a866675Ce37B66b").
+        SetGatewayApiKey("903f4f9268ab4e2eac717c7200429776").
+        SetGatewayApiValue("0c1dd14a41b14cfa83048d839a0593ff").
+    	SetAuthorityAddress("0xa7FC5B0F4A0085c5Ce689b919a866675Ce37B66b").
         SetChargeAddress("0x3BBb01B38958d4dbF1e004611EbB3c65979B0511").
         SetDDC721Address("0x3B09b7A00271C5d9AE84593850dE3A526b8BF96e").
         SetDDC1155Address("0xe5d3b9E7D16E03A4A1060c72b5D1cb7806DD9070").
@@ -613,6 +618,8 @@ CreateAccount() (*dto.Account, error)
         SetSignEventListener(new(SignListener)).//注册实现了签名接口的结构体
         SetGasPrice(1e10).//建议设置gasPrice>=1e10
         SetGatewayUrl("https://opbtest.bsngate.com:18602/api/0e346e1fb134477cafb6c6c2583ce3c4/evmrpc").
+        SetGatewayApiKey("903f4f9268ab4e2eac717c7200429776").
+        SetGatewayApiValue("0c1dd14a41b14cfa83048d839a0593ff").
         SetAuthorityAddress("0xa7FC5B0F4A0085c5Ce689b919a866675Ce37B66b").
         SetChargeAddress("0x3BBb01B38958d4dbF1e004611EbB3c65979B0511").
         SetDDC721Address("0x3B09b7A00271C5d9AE84593850dE3A526b8BF96e").
@@ -1105,6 +1112,8 @@ CreateAccount() (*dto.Account, error)
         SetSignEventListener(new(SignListener)).//注册实现了签名接口的结构体
         SetGasPrice(1e10).//建议设置gasPrice>=1e10
         SetGatewayUrl("https://opbtest.bsngate.com:18602/api/0e346e1fb134477cafb6c6c2583ce3c4/evmrpc").
+        SetGatewayApiKey("903f4f9268ab4e2eac717c7200429776").
+        SetGatewayApiValue("0c1dd14a41b14cfa83048d839a0593ff").
         SetAuthorityAddress("0xa7FC5B0F4A0085c5Ce689b919a866675Ce37B66b").
         SetChargeAddress("0x3BBb01B38958d4dbF1e004611EbB3c65979B0511").
         SetDDC721Address("0x3B09b7A00271C5d9AE84593850dE3A526b8BF96e").

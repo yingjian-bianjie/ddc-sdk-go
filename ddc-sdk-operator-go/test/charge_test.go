@@ -30,3 +30,7 @@ func TestSetFee(t *testing.T) {
 	opts.From = common.HexToAddress(operator)
 	fmt.Println(chargeService.SetFee(opts, config.Info.AuthorityAddress().String(), [4]byte{0xe3, 0xf0, 0x0c, 0x3a}, 10))
 }
+func TestAcc(t *testing.T) {
+	fmt.Println(common.HexToAddress("0x1") == common.HexToAddress("1"))
+	fmt.Println(common.IsHexAddress(common.HexToAddress("0").Hex()))
+}
