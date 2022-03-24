@@ -17,20 +17,20 @@ var (
 	//		SetDDC1155Address("0xe5d3b9E7D16E03A4A1060c72b5D1cb7806DD9070").
 	//		RegisterLog("./log.log"). //设置日志输出的文件路径
 	//		Build()
-	client        = clientBuilder.
+	client = clientBuilder.
 		SetSignEventListener(new(SignListener)).
-		SetGasPrice(1e10).
+		SetGasPrice(1).
 		SetGatewayUrl("http://192.168.150.42:8545").
 		SetAuthorityAddress("0x6a3B24042dA7Bb5F2CBF1BCB2ABE0C632590C580").
 		SetChargeAddress("0x95aDFbA9050C5D886419334Ae478b9844f413eF2").
-		SetDDC721Address("0x1C917baf05863417391acCfe85d305Eae41401Ec").
+		SetDDC721Address("0x02A25C69843E197e3063Ed848f6FEA512633CB8E").
 		SetDDC1155Address("0x02A25C69843E197e3063Ed848f6FEA512633CB8E").
 		RegisterLog("./log.log").
 		Build()
 	opts = new(bind.TransactOpts)
 
-	genV1="0x4F3B9C50A29562E3B71144A62E8447AC0DE7EC33"
-	genV1P="0x199a46b9bb8a68a2c1c9bc160cf1ee9614585d088826c48635c707ef18775366"
+	genV1  = "0x4F3B9C50A29562E3B71144A62E8447AC0DE7EC33"
+	genV1P = "0x199a46b9bb8a68a2c1c9bc160cf1ee9614585d088826c48635c707ef18775366"
 
 	pl  = "0xEDEDA0F1C1FAF1F34C9126975267FC6F95BE75F9"
 	plP = "0xDCF313CD386BCF3787ECF9968F603729B278C2A0DCA18E940E3EF59EA600FD8E"
@@ -48,7 +48,7 @@ var (
 
 	//账户和私钥的映射
 	senderPri = map[string]string{
-		genV1: genV1P,
+		genV1:    genV1P,
 		pl:       plP,
 		operator: operatorPri,
 		platform: platformPri,

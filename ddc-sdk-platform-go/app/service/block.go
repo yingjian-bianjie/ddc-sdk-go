@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"math/big"
 	"strconv"
 
@@ -31,7 +32,7 @@ func (b *BlockService) GetBlockByNumber(blockNumber int64) (*types.Block, error)
 	block, err := handler.GetConn().BlockByNumber(context.Background(), big.NewInt(blockNumber))
 	if err != nil {
 		log.Error.Printf("failed to execute GetBlockByNumber: %v", err.Error())
-		return nil, types2.NewSDKError(types2.QueryError.Error(),err.Error())
+		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 
 	return block, nil
@@ -49,7 +50,7 @@ func (b *BlockService) GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, e
 	block, err := handler.GetConn().BlockByNumber(context.Background(), big.NewInt(blockNumber))
 	if err != nil {
 		log.Error.Printf("failed to execute BlockByNumber: %v", err.Error())
-		return nil, types2.NewSDKError(types2.QueryError.Error(),err.Error())
+		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 	var blockEvents []interface{}
 	//查找每笔交易中的event
@@ -57,7 +58,7 @@ func (b *BlockService) GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, e
 		txEvents, err := b.GetTxEvents(tx.Hash())
 		if err != nil {
 			log.Error.Printf("failed to get events of Tx: %v,error: %v", tx.Hash(), err.Error())
-			return nil, types2.NewSDKError(types2.QueryError.Error(),err.Error())
+			return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 		}
 		blockEvents = append(blockEvents, txEvents)
 	}
@@ -77,11 +78,12 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 	receipt, err := handler.GetConn().TransactionReceipt(context.Background(), txHash)
 	if err != nil {
 		log.Error.Printf("failed to execute TransactionReceipt: %v", err.Error())
-		return nil, types2.NewSDKError(types2.QueryError.Error(),err.Error())
+		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 	var event interface{}
 	//获取交易的logs中的所有log对应的event
 	for _, l := range receipt.Logs {
+		fmt.Println("==========" + l.Address.Hex())
 		//1.匹配对应的合约
 		switch l.Address {
 		case config.Info.AuthorityAddress():
@@ -125,14 +127,20 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 			}
 		case config.Info.Ddc721Address():
 			{
+				fmt.Println("++++++++++++++++++++++++")
+				fmt.Println("get:" + l.Topics[0].Hex()) //0xd1398bee19313d6bf672ccb116e51f4a1a947e91c757907f51fbb5b5e56c698f
+
 				ddc721 := handler.GetDDC721()
 				abi, err := contracts.DDC721MetaData.GetAbi()
+				fmt.Println("transfer:" + abi.Events[constant.EventTransfer].ID.Hex())
+
 				if err != nil {
 					log.Error.Printf("failed to get DDC721 abi: %v", err.Error())
 					return nil, err
 				}
 				switch l.Topics[0] {
 				case abi.Events[constant.EventTransfer].ID:
+					fmt.Println("^^^^^^^^^^^^^^^^^")
 					event, err = ddc721.ParseTransfer(*l)
 				case abi.Events[constant.EventPay].ID:
 					event, err = ddc721.ParseOwnershipTransferred(*l)
