@@ -2,8 +2,11 @@ package handler
 
 import (
 	"context"
+	"net/http"
+	"net/url"
 
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/ethereum/go-ethereum/rpc"
 
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/config"
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/pkg/contracts"
@@ -11,15 +14,34 @@ import (
 )
 
 // GetConn 获取连接实体
-func GetConn() *ethclient.Client {
+func GetConn() (conn *ethclient.Client) {
 	var ctx context.Context
+	var err error
 	ctx = context.Background()
-	//设置请求参数
-	ctx = context.WithValue(ctx, config.Info.HeaderKey(), config.Info.HeaderValue())
-	conn, err := ethclient.DialContext(ctx, config.Info.OpbGatewayAddress())
+
+	u, err := url.Parse(config.Info.OpbGatewayAddress())
 	if err != nil {
-		log.Error.Printf("failed to connect to the client :%v", err.Error())
+		log.Error.Printf("failed to parse url :%v", err.Error())
+		return nil
 	}
+
+	switch u.Scheme {
+	case "http", "https":
+		client := new(rpc.Client)
+		client, err = rpc.DialHTTPWithClient(config.Info.OpbGatewayAddress(), new(http.Client))
+		//设置请求头参数
+		client.SetHeader(config.Info.HeaderKey(), config.Info.HeaderValue())
+		conn = ethclient.NewClient(client)
+	default:
+		//预留
+		ctx = context.WithValue(ctx, config.Info.HeaderKey(), config.Info.HeaderValue())
+		conn, err = ethclient.DialContext(ctx, config.Info.OpbGatewayAddress())
+	}
+
+	if err != nil {
+		log.Error.Printf("failed to connect to the rpc server :%v", err.Error())
+	}
+
 	return conn
 }
 

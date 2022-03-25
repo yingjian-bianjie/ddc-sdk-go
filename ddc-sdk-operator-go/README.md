@@ -48,10 +48,10 @@
     client        = clientBuilder.
         SetSignEventListener(new(SignListener)).//注册实现了签名接口的结构体
         SetGasPrice(1e10).//设置gasPrice
-        SetGatewayUrl("https://opbtest.bsngate.com:18602/api/0e346e1fb134477cafb6c6c2583ce3c4/evmrpc").
-        SetGatewayApiKey("903f4f9268ab4e2eac717c7200429776").
-        SetGatewayApiValue("0c1dd14a41b14cfa83048d839a0593ff").
-        SetAuthorityAddress("0xa7FC5B0F4A0085c5Ce689b919a866675Ce37B66b").
+        SetGatewayUrl("https://opbtest.bsngate.com:18602/api/[ProjectId]/evmrpc").
+        SetGatewayApiKey("x-api-key").
+        SetGatewayApiValue("[ProjectKey]").
+    	SetAuthorityAddress("0xa7FC5B0F4A0085c5Ce689b919a866675Ce37B66b").
         SetChargeAddress("0x3BBb01B38958d4dbF1e004611EbB3c65979B0511").
         SetDDC721Address("0x3B09b7A00271C5d9AE84593850dE3A526b8BF96e").
         SetDDC1155Address("0xe5d3b9E7D16E03A4A1060c72b5D1cb7806DD9070").
@@ -617,9 +617,9 @@ CreateAccount() (*dto.Account, error)
     client        = clientBuilder.
         SetSignEventListener(new(SignListener)).//注册实现了签名接口的结构体
         SetGasPrice(1e10).//设置gasPrice
-        SetGatewayUrl("https://opbtest.bsngate.com:18602/api/0e346e1fb134477cafb6c6c2583ce3c4/evmrpc").
-        SetGatewayApiKey("903f4f9268ab4e2eac717c7200429776").
-        SetGatewayApiValue("0c1dd14a41b14cfa83048d839a0593ff").
+        SetGatewayUrl("https://opbtest.bsngate.com:18602/api/[ProjectId]/evmrpc").
+        SetGatewayApiKey("x-api-key").
+        SetGatewayApiValue("[ProjectKey]").
         SetAuthorityAddress("0xa7FC5B0F4A0085c5Ce689b919a866675Ce37B66b").
         SetChargeAddress("0x3BBb01B38958d4dbF1e004611EbB3c65979B0511").
         SetDDC721Address("0x3B09b7A00271C5d9AE84593850dE3A526b8BF96e").
@@ -1111,9 +1111,9 @@ CreateAccount() (*dto.Account, error)
     client        = clientBuilder.
         SetSignEventListener(new(SignListener)).//注册实现了签名接口的结构体
         SetGasPrice(1e10).//设置gasPrice
-        SetGatewayUrl("https://opbtest.bsngate.com:18602/api/0e346e1fb134477cafb6c6c2583ce3c4/evmrpc").
-        SetGatewayApiKey("903f4f9268ab4e2eac717c7200429776").
-        SetGatewayApiValue("0c1dd14a41b14cfa83048d839a0593ff").
+        SetGatewayUrl("https://opbtest.bsngate.com:18602/api/[ProjectId]/evmrpc").
+        SetGatewayApiKey("x-api-key").
+        SetGatewayApiValue("[ProjectKey]").
         SetAuthorityAddress("0xa7FC5B0F4A0085c5Ce689b919a866675Ce37B66b").
         SetChargeAddress("0x3BBb01B38958d4dbF1e004611EbB3c65979B0511").
         SetDDC721Address("0x3B09b7A00271C5d9AE84593850dE3A526b8BF96e").
