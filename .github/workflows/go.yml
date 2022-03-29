@@ -23,14 +23,14 @@ jobs:
         go build -v ./app/client.go
         cd ../ddc-sdk-platform-go/
         go build -v ./app/client.go
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
+#   test:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v3
 
-    - name: Test
-      run: |
-        cd ./ddc-sdk-operator-go/
-        go test ./test
-        cd ../ddc-sdk-platform-go/
-        go test ./test
+#     - name: Test
+#       run: |
+#         cd ./ddc-sdk-operator-go/
+#         go test ./test
+#         cd ../ddc-sdk-platform-go/
+#         go test ./test
