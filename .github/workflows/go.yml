@@ -30,7 +30,7 @@ jobs:
 
     - name: Test
       run: |
-        cd ../ddc-sdk-operator-go/
+        cd ./ddc-sdk-operator-go/
         go test -v ./ddc-sdk-operator-go/
         cd ../ddc-sdk-platform-go/
         go test -v ./ddc-sdk-platform-go/
