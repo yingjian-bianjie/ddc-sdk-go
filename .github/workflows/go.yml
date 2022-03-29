@@ -22,7 +22,12 @@ jobs:
       run: |
         cd ./ddc-sdk-operator-go/
         go build -v ./app/client.go
-
+        cd ./ddc-sdk-platform-go/
+        go build -v ./app/client.go
 
     - name: Test
-      run: go test -v ./ddc-sdk-operator-go/
+      run: |
+        cd ./ddc-sdk-operator-go/
+        go test -v ./ddc-sdk-operator-go/
+        cd ./ddc-sdk-platform-go/
+        go test -v ./ddc-sdk-platform-go/
