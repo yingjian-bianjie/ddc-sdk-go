@@ -256,7 +256,9 @@ func (b Base) CreateAccount() (*dto.Account, error) {
 	}
 	path := hdwallet.MustParseDerivationPath("m/44'/60'/0'/0/0")
 	account, err := wallet.Derive(path, false)
-
+	if err != nil {
+		return nil, err
+	}
 	privateKeyHex, err := wallet.PrivateKeyHex(account)
 	if err != nil {
 		return nil, err

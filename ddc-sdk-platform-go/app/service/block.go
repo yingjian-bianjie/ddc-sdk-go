@@ -89,7 +89,7 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 				authority := handler.GetAuthority()
 				abi, err := contracts.AuthorityMetaData.GetAbi()
 				if err != nil {
-					log.Error.Printf("failed to get Authoriy abi: %v", err.Error())
+					log.Error.Printf("failed to get Authority abi: %v", err.Error())
 					return nil, err
 				}
 				//2.匹配对应的事件
