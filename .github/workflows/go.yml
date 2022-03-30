@@ -20,7 +20,7 @@ jobs:
     - name: Lint operator
       uses: golangci/golangci-lint-action@v3.1.0
       with:
-          working directory: ddc-sdk-operator-go
+          working-directory: ddc-sdk-operator-go
           version: latest
           # skip cache because of flaky behaviors
           skip-build-cache: true
@@ -29,7 +29,7 @@ jobs:
     - name: Lint platform
       uses: golangci/golangci-lint-action@v3.1.0
       with:
-          working directory: ddc-sdk-platform-go
+          working-directory: ddc-sdk-platform-go
           version: latest
           # skip cache because of flaky behaviors
           skip-build-cache: true
