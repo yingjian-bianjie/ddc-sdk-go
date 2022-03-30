@@ -57,7 +57,7 @@ func (d *DDCSdkClientBuilder) SetGasPrice(gasPrice uint64) *DDCSdkClientBuilder 
 	return d
 }
 
-func (d *DDCSdkClientBuilder) SetGatewayUrl(url string) *DDCSdkClientBuilder {
+func (d *DDCSdkClientBuilder) SetGatewayURL(url string) *DDCSdkClientBuilder {
 
 	if d.client == nil {
 		d.client = &DDCSdkClient{}
@@ -65,14 +65,14 @@ func (d *DDCSdkClientBuilder) SetGatewayUrl(url string) *DDCSdkClientBuilder {
 	d.client.opbGatewayAddress = url
 	return d
 }
-func (d *DDCSdkClientBuilder) SetGatewayApiKey(apiKey string) *DDCSdkClientBuilder {
+func (d *DDCSdkClientBuilder) SetGatewayAPIKey(apiKey string) *DDCSdkClientBuilder {
 	if d.client == nil {
 		d.client = &DDCSdkClient{}
 	}
 	d.client.headerKey = apiKey
 	return d
 }
-func (d *DDCSdkClientBuilder) SetGatewayApiValue(apiValue string) *DDCSdkClientBuilder {
+func (d *DDCSdkClientBuilder) SetGatewayAPIValue(apiValue string) *DDCSdkClientBuilder {
 	if d.client == nil {
 		d.client = &DDCSdkClient{}
 	}
@@ -119,7 +119,6 @@ func (d *DDCSdkClientBuilder) Build() *DDCSdkClient {
 	if d.client.signEventListener == nil {
 		log.Error.Println("signEventListener must be set")
 		panic("signEventListener must be set")
-		return nil
 	}
 	// 将数据写入全局变量
 	config.Init(d.client.signEventListener,

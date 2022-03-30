@@ -124,7 +124,7 @@ func (b Base) NewRawTx(opts *bind.TransactOpts, contract common.Address, input [
 func (b Base) Bech32ToHex(addr string) (string, error) {
 	bz, err := utils.GetFromBech32(addr, "iaa")
 	if err != nil {
-		log.Error.Printf("convert address", err.Error())
+		log.Error.Printf("failed to convert address: %v", err.Error())
 		return "", err
 	}
 
@@ -140,7 +140,7 @@ func (b Base) Bech32ToHex(addr string) (string, error) {
 func (b Base) HexToBech32(addr []byte) (string, error) {
 	t, err := utils.ConvertAndEncode("iaa", addr)
 	if err != nil {
-		log.Error.Printf("convert address", err.Error())
+		log.Error.Printf("failed to convert address: %v", err.Error())
 		return "", err
 	}
 

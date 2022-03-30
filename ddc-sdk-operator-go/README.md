@@ -254,18 +254,18 @@ var ddc721Service = client.GetDDC721Service()
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param to 授权者账户
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-Approve(opts *bind.TransactOpts, to string, ddcId int64) (signedTx *types.Transaction, err error)
+Approve(opts *bind.TransactOpts, to string, ddcID int64) (signedTx *types.Transaction, err error)
 
 // GetApprove
 // @Description: 运营方、平台方或终端用户都可以通过调用该方法查询DDC的授权情况
 // @receiver d
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return string 授权的账户
 // @return error
-GetApprove(ddcId int64) (string, error) 
+GetApprove(ddcID int64) (string, error) 
 
 // SetApprovalForAll
 // @Description: DDC拥有者可以通过调用该方法进行账户授权，发起者需要是DDC的拥有者
@@ -292,11 +292,11 @@ IsApprovedForAll(owner, operator string) (bool, error)
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param from 拥有者账户
 // @param to 接收者账户
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @param data 附加数据
 // @return signedTx 签名好的交易
 // @return error
-SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcId int64, data []byte) (signedTx *types.Transaction, err error)
+SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcID int64, data []byte) (signedTx *types.Transaction, err error)
 
 // TransferFrom
 // @Description: DDC拥有者或授权者可以通过调用该方法进行DDC的转移
@@ -304,37 +304,37 @@ SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcId int64, data []b
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param from 拥有者账户
 // @param to 接收者账户
-// @param ddcId ddc唯一标识
+// @param ddcID ddc唯一标识
 // @return signedTx 签名好的交易
 // @return error
-TransferFrom(opts *bind.TransactOpts, from, to string, ddcId int64) (signedTx *types.Transaction, err error) 
+TransferFrom(opts *bind.TransactOpts, from, to string, ddcID int64) (signedTx *types.Transaction, err error) 
 
 // Freeze
 // @Description: 运营方可以通过调用该方法进行DDC的冻结
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-Freeze(opts *bind.TransactOpts, ddcId int64) (signedTx *types.Transaction, err error)
+Freeze(opts *bind.TransactOpts, ddcID int64) (signedTx *types.Transaction, err error)
 
 // UnFreeze
 // @Description: 运营方可以通过调用该方法进行DDC的解冻
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-UnFreeze(opts *bind.TransactOpts, ddcId int64) (signedTx *types.Transaction, err error)
+UnFreeze(opts *bind.TransactOpts, ddcID int64) (signedTx *types.Transaction, err error)
 
 // Burn
 // @Description: DDC拥有者或DDC授权者可以通过调用该方法进行DDC的销毁
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-Burn(opts *bind.TransactOpts, ddcId int64) (signedTx *types.Transaction, err error)
+Burn(opts *bind.TransactOpts, ddcID int64) (signedTx *types.Transaction, err error)
 
 // BalanceOf
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法进行查询当前账户拥有的DDC的数量
@@ -347,10 +347,10 @@ BalanceOf(owner string) (uint64, error)
 // OwnerOf
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法查询当前DDC的拥有者
 // @receiver d
-// @param ddcId ddc唯一标识
+// @param ddcID ddc唯一标识
 // @return string 拥有者账户
 // @return error
-OwnerOf(ddcId int64) (string, error)
+OwnerOf(ddcID int64) (string, error)
 
 // Name
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法查询当前DDC的名称
@@ -369,20 +369,20 @@ Symbol() (string, error)
 // DdcURI
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法查询当前DDC的资源标识符
 // @receiver d
-// @param ddcId DDC唯一标识符
+// @param ddcID DDC唯一标识符
 // @return string DDC资源标识符
 // @return error
-DdcURI(ddcId int64) (string, error)
+DdcURI(ddcID int64) (string, error)
 
 // SetURI
 // @Description: DDC拥有者或DDC授权者通过调用该方法对DDC的资源标识符进行设置
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @param ddcURI DDC资源标识符
 // @return signedTx 签名好的交易
 // @return err
-SetURI(opts *bind.TransactOpts, ddcId int64, ddcURI string) (signedTx *types.Transaction, err error)
+SetURI(opts *bind.TransactOpts, ddcID int64, ddcURI string) (signedTx *types.Transaction, err error)
 
 // SetNameAndSymbol
 // @Description: 合约拥有者调用该方法对721的名称及符号进行设置。
@@ -428,12 +428,12 @@ IsApprovedForAll(owner, operator string) (bool, error)
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param from 拥有者账户
 // @param to 接收者账户
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @param amount 需要转移的DDC数量
 // @param data 附加数据
 // @return signedTx 签名好的交易
 // @return error
-SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcId, amount int64, data []byte) (signedTx *types.Transaction, err error)
+SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcID, amount int64, data []byte) (signedTx *types.Transaction, err error)
 
 // SafeBatchTransferFrom
 // @Description: DDC拥有者或DDC授权者可以通过调用该方法进行DDC的批量转移
@@ -441,7 +441,7 @@ SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcId, amount int64, 
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param from 拥有者账户
 // @param to 接收者账户
-// @param ddcInfo 要转移的ddc集合（ddcId->amount）
+// @param ddcInfo 要转移的ddc集合（ddcID->amount）
 // @param data 附加数据
 // @return signedTx 签名好的交易
 // @return error
@@ -451,28 +451,28 @@ SafeBatchTransferFrom(opts *bind.TransactOpts, from, to string, ddcInfo map[int6
 // @Description: 运营方可以通过调用该方法进行DDC的冻结
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-Freeze(opts *bind.TransactOpts, ddcId int64) (signedTx *types.Transaction, err error)
+Freeze(opts *bind.TransactOpts, ddcID int64) (signedTx *types.Transaction, err error)
 
 // UnFreeze
 // @Description: 运营方可以通过调用该方法进行DDC的解冻
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-UnFreeze(opts *bind.TransactOpts, ddcId int64) (signedTx *types.Transaction, err error)
+UnFreeze(opts *bind.TransactOpts, ddcID int64) (signedTx *types.Transaction, err error)
 
 // Burn
 // @Description: DDC拥有者或DDC授权者可以通过调用该方法进行DDC的销毁
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-Burn(opts *bind.TransactOpts, owner string, ddcId int64) (signedTx *types.Transaction, err error)
+Burn(opts *bind.TransactOpts, owner string, ddcID int64) (signedTx *types.Transaction, err error)
 
 // BurnBatch
 // @Description: DDC拥用者可以通过调用该方法进行DDC的批量销毁
@@ -488,10 +488,10 @@ BurnBatch(opts *bind.TransactOpts, owner string, ddcIds []int64) (signedTx *type
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法进行查询当前账户拥有的对应ddcId的数量
 // @receiver d
 // @param owner 拥有者账户
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return uint64 ddcId对应的数量
 // @return error
-BalanceOf(owner string, ddcId int64) (uint64, error)
+BalanceOf(owner string, ddcID int64) (uint64, error)
 
 // BalanceOfBatch
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法进行批量查询账户拥有的DDC的数量

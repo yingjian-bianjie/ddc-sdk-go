@@ -5,6 +5,7 @@ import (
 	"math/big"
 	"strconv"
 
+	abi2 "github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 
@@ -80,6 +81,7 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 		return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
 	var event interface{}
+	var abi *abi2.ABI
 	//获取交易的logs中的所有log对应的event
 	for _, l := range receipt.Logs {
 		//1.匹配对应的合约
@@ -87,7 +89,8 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 		case config.Info.AuthorityAddress():
 			{
 				authority := handler.GetAuthority()
-				abi, err := contracts.AuthorityMetaData.GetAbi()
+
+				abi, err = contracts.AuthorityMetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get Authority abi: %v", err.Error())
 					return nil, err
@@ -105,7 +108,7 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 		case config.Info.ChargeAddress():
 			{
 				charge := handler.GetCharge()
-				abi, err := contracts.ChargeMetaData.GetAbi()
+				abi, err = contracts.ChargeMetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get Charge abi: %v", err.Error())
 					return nil, err
@@ -126,7 +129,7 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 		case config.Info.Ddc721Address():
 			{
 				ddc721 := handler.GetDDC721()
-				abi, err := contracts.DDC721MetaData.GetAbi()
+				abi, err = contracts.DDC721MetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get DDC721 abi: %v", err.Error())
 					return nil, err
@@ -147,7 +150,7 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 		case config.Info.Ddc1155Address():
 			{
 				ddc1155 := handler.GetDDC1155()
-				abi, err := contracts.DDC1155MetaData.GetAbi()
+				abi, err = contracts.DDC1155MetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get DDC1155 abi: %v", err.Error())
 					return nil, err
