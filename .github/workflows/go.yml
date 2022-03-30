@@ -17,10 +17,17 @@ jobs:
       with:
         go-version: 1.17
         
-    - name: Lint
+    - name: Set up Lint
       uses: golangci/golangci-lint-action@v3.1.0
       with:
           version: latest
+          
+    - name: Lint
+      run: |
+        cd ./ddc-sdk-operator-go/
+        golangci-lint run
+        cd ../ddc-sdk-platform-go/
+        golangci-lint run
           
   build:
     needs: golangci-lint
