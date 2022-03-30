@@ -13,6 +13,8 @@ import (
 	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-operator-go/pkg/log"
 )
 
+type myString string
+
 // GetConn 获取连接实体
 func GetConn() (conn *ethclient.Client) {
 	var ctx context.Context
@@ -27,14 +29,14 @@ func GetConn() (conn *ethclient.Client) {
 
 	switch u.Scheme {
 	case "http", "https":
-		client := new(rpc.Client)
+		var client *rpc.Client
 		client, err = rpc.DialHTTPWithClient(config.Info.OpbGatewayAddress(), new(http.Client))
 		//设置请求头参数
 		client.SetHeader(config.Info.HeaderKey(), config.Info.HeaderValue())
 		conn = ethclient.NewClient(client)
 	default:
 		//预留
-		ctx = context.WithValue(ctx, config.Info.HeaderKey(), config.Info.HeaderValue())
+		ctx = context.WithValue(ctx, myString(config.Info.HeaderKey()), config.Info.HeaderValue())
 		conn, err = ethclient.DialContext(ctx, config.Info.OpbGatewayAddress())
 	}
 

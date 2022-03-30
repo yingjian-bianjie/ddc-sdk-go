@@ -63,9 +63,9 @@ func (t TxService) GetTransStatus(txHash string) (bool, error) {
 
 	if receipt.Status == 0 {
 		return false, nil
-	} else {
-		return true, nil
 	}
+
+	return true, nil
 }
 
 // GetTimeByTxHash

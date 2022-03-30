@@ -28,7 +28,7 @@ var (
 	DDCInfoError      = register(DDC, "1010", "the length of amounts and ddcURIs do not match")
 	OwnersDDCIdsError = register(DDC, "1011", "the length of owners and ddcIds do not match")
 
-	DDCIdError  = register(DDC, "1016", "ddcId is wrong")
+	DDCIdError  = register(DDC, "1016", "ddcID is wrong")
 	DDCURIError = register(DDC, "1017", "ddcURI cannot be empty")
 	AmountError = register(DDC, "1018", "Amount is wrong")
 	DDCIdsError = register(DDC, "1019", "ddcIds must not be empty")

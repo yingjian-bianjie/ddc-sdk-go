@@ -74,12 +74,12 @@ func (d *DDC1155Service) IsApprovedForAll(owner, operator string) (bool, error) 
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param from 拥有者账户
 // @param to 接收者账户
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @param amount 需要转移的DDC数量
 // @param data 附加数据
 // @return signedTx 签名好的交易
 // @return error
-func (d *DDC1155Service) SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcId, amount int64, data []byte) (signedTx *types.Transaction, err error) {
+func (d *DDC1155Service) SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcID, amount int64, data []byte) (signedTx *types.Transaction, err error) {
 
 	if common.HexToAddress(from) == common.HexToAddress("0") || !common.IsHexAddress(from) {
 		return nil, types2.FromAccountError
@@ -87,7 +87,7 @@ func (d *DDC1155Service) SafeTransferFrom(opts *bind.TransactOpts, from, to stri
 	if common.HexToAddress(to) == common.HexToAddress("0") || !common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
-	if ddcId <= 0 {
+	if ddcID <= 0 {
 		return nil, types2.DDCIdError
 	}
 	if amount <= 0 {
@@ -95,7 +95,7 @@ func (d *DDC1155Service) SafeTransferFrom(opts *bind.TransactOpts, from, to stri
 	}
 
 	d.SetOpts(opts)
-	signedTx, err = handler.GetDDC1155().SafeTransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcId), big.NewInt(amount), data)
+	signedTx, err = handler.GetDDC1155().SafeTransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcID), big.NewInt(amount), data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeTransferFrom: %v", err.Error())
 		return nil, types2.NewSDKError(types2.TransactError.Error(), err.Error())
@@ -110,7 +110,7 @@ func (d *DDC1155Service) SafeTransferFrom(opts *bind.TransactOpts, from, to stri
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param from 拥有者账户
 // @param to 接收者账户
-// @param ddcInfo 要转移的ddc集合（ddcId->amount）
+// @param ddcInfo 要转移的ddc集合（ddcID->amount）
 // @param data 附加数据
 // @return signedTx 签名好的交易
 // @return error
@@ -125,14 +125,14 @@ func (d *DDC1155Service) SafeBatchTransferFrom(opts *bind.TransactOpts, from, to
 	var ddcIds []*big.Int
 	var amounts []*big.Int
 
-	for ddcId, amount := range ddcInfo {
-		if ddcId <= 0 {
+	for ddcID, amount := range ddcInfo {
+		if ddcID <= 0 {
 			return nil, types2.DDCIdError
 		}
 		if amount <= 0 {
 			return nil, types2.AmountError
 		}
-		ddcIds = append(ddcIds, big.NewInt(ddcId))
+		ddcIds = append(ddcIds, big.NewInt(ddcID))
 		amounts = append(amounts, big.NewInt(amount))
 	}
 
@@ -150,17 +150,17 @@ func (d *DDC1155Service) SafeBatchTransferFrom(opts *bind.TransactOpts, from, to
 // @Description: 运营方可以通过调用该方法进行DDC的冻结
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-func (d *DDC1155Service) Freeze(opts *bind.TransactOpts, ddcId int64) (signedTx *types.Transaction, err error) {
+func (d *DDC1155Service) Freeze(opts *bind.TransactOpts, ddcID int64) (signedTx *types.Transaction, err error) {
 
-	if ddcId <= 0 {
+	if ddcID <= 0 {
 		return nil, types2.DDCIdError
 	}
 
 	d.SetOpts(opts)
-	signedTx, err = handler.GetDDC1155().Freeze(opts, big.NewInt(ddcId))
+	signedTx, err = handler.GetDDC1155().Freeze(opts, big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute Freeze: %v", err.Error())
 		return nil, types2.NewSDKError(types2.TransactError.Error(), err.Error())
@@ -173,17 +173,17 @@ func (d *DDC1155Service) Freeze(opts *bind.TransactOpts, ddcId int64) (signedTx 
 // @Description: 运营方可以通过调用该方法进行DDC的解冻
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-func (d *DDC1155Service) UnFreeze(opts *bind.TransactOpts, ddcId int64) (signedTx *types.Transaction, err error) {
+func (d *DDC1155Service) UnFreeze(opts *bind.TransactOpts, ddcID int64) (signedTx *types.Transaction, err error) {
 
-	if ddcId <= 0 {
+	if ddcID <= 0 {
 		return nil, types2.DDCIdError
 	}
 
 	d.SetOpts(opts)
-	signedTx, err = handler.GetDDC1155().UnFreeze(opts, big.NewInt(ddcId))
+	signedTx, err = handler.GetDDC1155().UnFreeze(opts, big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute UnFreeze: %v", err.Error())
 		return nil, types2.NewSDKError(types2.TransactError.Error(), err.Error())
@@ -196,20 +196,20 @@ func (d *DDC1155Service) UnFreeze(opts *bind.TransactOpts, ddcId int64) (signedT
 // @Description: DDC拥有者或DDC授权者可以通过调用该方法进行DDC的销毁
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-func (d *DDC1155Service) Burn(opts *bind.TransactOpts, owner string, ddcId int64) (signedTx *types.Transaction, err error) {
+func (d *DDC1155Service) Burn(opts *bind.TransactOpts, owner string, ddcID int64) (signedTx *types.Transaction, err error) {
 
 	if common.HexToAddress(owner) == common.HexToAddress("0") || !common.IsHexAddress(owner) {
 		return nil, types2.OwnerAccountError
 	}
-	if ddcId <= 0 {
+	if ddcID <= 0 {
 		return nil, types2.DDCIdError
 	}
 
 	d.SetOpts(opts)
-	signedTx, err = handler.GetDDC1155().Burn(opts, common.HexToAddress(owner), big.NewInt(ddcId))
+	signedTx, err = handler.GetDDC1155().Burn(opts, common.HexToAddress(owner), big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute Burn: %v", err.Error())
 		return nil, types2.NewSDKError(types2.TransactError.Error(), err.Error())
@@ -235,11 +235,11 @@ func (d *DDC1155Service) BurnBatch(opts *bind.TransactOpts, owner string, ddcIds
 		return nil, types2.DDCIdError
 	}
 	var ddcIDs []*big.Int
-	for ddcId := range ddcIds {
-		if ddcId <= 0 {
+	for ddcID := range ddcIds {
+		if ddcID <= 0 {
 			return nil, types2.DDCIdError
 		}
-		ddcIDs = append(ddcIDs, big.NewInt(int64(ddcId)))
+		ddcIDs = append(ddcIDs, big.NewInt(int64(ddcID)))
 	}
 
 	d.SetOpts(opts)
@@ -256,18 +256,18 @@ func (d *DDC1155Service) BurnBatch(opts *bind.TransactOpts, owner string, ddcIds
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法进行查询当前账户拥有的对应ddcId的数量
 // @receiver d
 // @param owner 拥有者账户
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return uint64 ddcId对应的数量
 // @return error
-func (d *DDC1155Service) BalanceOf(owner string, ddcId int64) (uint64, error) {
+func (d *DDC1155Service) BalanceOf(owner string, ddcID int64) (uint64, error) {
 	if common.HexToAddress(owner) == common.HexToAddress("0") || !common.IsHexAddress(owner) {
 		return 0, types2.OwnerAccountError
 	}
-	if ddcId <= 0 {
+	if ddcID <= 0 {
 		return 0, types2.DDCIdError
 	}
 
-	balance, err := handler.GetDDC1155().BalanceOf(nil, common.HexToAddress(owner), big.NewInt(ddcId))
+	balance, err := handler.GetDDC1155().BalanceOf(nil, common.HexToAddress(owner), big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute BalanceOf: %v", err.Error())
 		return 0, types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -300,11 +300,11 @@ func (d *DDC1155Service) BalanceOfBatch(owners []common.Address, ddcIds []*big.I
 // DdcURI
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法查询当前DDC的资源标识符
 // @receiver d
-// @param ddcId DDC唯一标识符
+// @param ddcID DDC唯一标识符
 // @return string DDC资源标识符
 // @return error
-func (d *DDC1155Service) DdcURI(ddcId int64) (ddcURI string, err error) {
-	ddcURI, err = handler.GetDDC1155().DdcURI(nil, big.NewInt(ddcId))
+func (d *DDC1155Service) DdcURI(ddcID int64) (ddcURI string, err error) {
+	ddcURI, err = handler.GetDDC1155().DdcURI(nil, big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute DdcURI: %v", err.Error())
 		return "", types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -318,23 +318,23 @@ func (d *DDC1155Service) DdcURI(ddcId int64) (ddcURI string, err error) {
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param owner DDC拥有者
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @param ddcURI DDC资源标识符
 // @return signedTx 签名好的交易
 // @return error
-func (d *DDC1155Service) SetURI(opts *bind.TransactOpts, owner string, ddcId int64, ddcURI string) (signedTx *types.Transaction, err error) {
+func (d *DDC1155Service) SetURI(opts *bind.TransactOpts, owner string, ddcID int64, ddcURI string) (signedTx *types.Transaction, err error) {
 
 	if common.HexToAddress(owner) == common.HexToAddress("0") || !common.IsHexAddress(owner) {
 		return nil, types2.OwnerAccountError
 	}
-	if ddcId <= 0 {
+	if ddcID <= 0 {
 		return nil, types2.DDCIdError
 	}
 	if len(ddcURI) == 0 {
 		return nil, types2.DDCURIError
 	}
 	d.SetOpts(opts)
-	signedTx, err = handler.GetDDC1155().SetURI(opts, common.HexToAddress(owner), big.NewInt(ddcId), ddcURI)
+	signedTx, err = handler.GetDDC1155().SetURI(opts, common.HexToAddress(owner), big.NewInt(ddcID), ddcURI)
 	if err != nil {
 		log.Error.Printf("failed to execute SetURI: %v", err.Error())
 		return nil, types2.NewSDKError(types2.TransactError.Error(), err.Error())

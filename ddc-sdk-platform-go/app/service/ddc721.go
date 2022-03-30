@@ -31,7 +31,7 @@ func NewDDC721Service() *DDC721Service {
 func (d *DDC721Service) Mint(opts *bind.TransactOpts, to, ddcURI string) (signedTx *types.Transaction, err error) {
 
 	//检查接收者账户地址格式是否正确
-	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
+	if common.HexToAddress(to) == common.HexToAddress("0") || !common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 
@@ -58,7 +58,7 @@ func (d *DDC721Service) Mint(opts *bind.TransactOpts, to, ddcURI string) (signed
 // @return signedTx 签名好的交易
 // @return error
 func (d *DDC721Service) SafeMint(opts *bind.TransactOpts, to, ddcURI string, data []byte) (signedTx *types.Transaction, err error) {
-	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
+	if common.HexToAddress(to) == common.HexToAddress("0") || !common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
 
@@ -78,21 +78,21 @@ func (d *DDC721Service) SafeMint(opts *bind.TransactOpts, to, ddcURI string, dat
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param to 授权者账户
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-func (d *DDC721Service) Approve(opts *bind.TransactOpts, to string, ddcId int64) (signedTx *types.Transaction, err error) {
+func (d *DDC721Service) Approve(opts *bind.TransactOpts, to string, ddcID int64) (signedTx *types.Transaction, err error) {
 
-	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
+	if common.HexToAddress(to) == common.HexToAddress("0") || !common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
-	if ddcId <= 0 {
+	if ddcID <= 0 {
 		return nil, types2.DDCIdError
 	}
 
 	//设置opts
 	d.SetOpts(opts)
-	signedTx, err = handler.GetDDC721().Approve(opts, common.HexToAddress(to), big.NewInt(ddcId))
+	signedTx, err = handler.GetDDC721().Approve(opts, common.HexToAddress(to), big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute FuncApprove: %v", err.Error())
 		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
@@ -104,15 +104,15 @@ func (d *DDC721Service) Approve(opts *bind.TransactOpts, to string, ddcId int64)
 // GetApprove
 // @Description: 运营方、平台方或终端用户都可以通过调用该方法查询DDC的授权情况
 // @receiver d
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return string 授权的账户
 // @return error
-func (d *DDC721Service) GetApprove(ddcId int64) (string, error) {
-	if ddcId <= 0 {
+func (d *DDC721Service) GetApprove(ddcID int64) (string, error) {
+	if ddcID <= 0 {
 		return "", types2.DDCIdError
 	}
 
-	approved, err := handler.GetDDC721().GetApproved(nil, big.NewInt(ddcId))
+	approved, err := handler.GetDDC721().GetApproved(nil, big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute GetApprove: %v", err.Error())
 		return "", types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -131,7 +131,7 @@ func (d *DDC721Service) GetApprove(ddcId int64) (string, error) {
 // @return error
 func (d *DDC721Service) SetApprovalForAll(opts *bind.TransactOpts, operator string, approved bool) (signedTx *types.Transaction, err error) {
 
-	if common.HexToAddress(operator)==common.HexToAddress("0")||!common.IsHexAddress(operator) {
+	if common.HexToAddress(operator) == common.HexToAddress("0") || !common.IsHexAddress(operator) {
 		return nil, types2.OperatorAccountError
 	}
 
@@ -154,10 +154,10 @@ func (d *DDC721Service) SetApprovalForAll(opts *bind.TransactOpts, operator stri
 // @return bool 授权标识
 // @return error
 func (d *DDC721Service) IsApprovedForAll(owner, operator string) (bool, error) {
-	if common.HexToAddress(owner)==common.HexToAddress("0")||!common.IsHexAddress(owner) {
+	if common.HexToAddress(owner) == common.HexToAddress("0") || !common.IsHexAddress(owner) {
 		return false, types2.OwnerAccountError
 	}
-	if common.HexToAddress(operator)==common.HexToAddress("0")||!common.IsHexAddress(operator) {
+	if common.HexToAddress(operator) == common.HexToAddress("0") || !common.IsHexAddress(operator) {
 		return false, types2.OperatorAccountError
 	}
 
@@ -176,24 +176,24 @@ func (d *DDC721Service) IsApprovedForAll(owner, operator string) (bool, error) {
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param from 拥有者账户
 // @param to 接收者账户
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @param data 附加数据
 // @return signedTx 签名好的交易
 // @return error
-func (d *DDC721Service) SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcId int64, data []byte) (signedTx *types.Transaction, err error) {
-	if common.HexToAddress(from)==common.HexToAddress("0")||!common.IsHexAddress(from) {
+func (d *DDC721Service) SafeTransferFrom(opts *bind.TransactOpts, from, to string, ddcID int64, data []byte) (signedTx *types.Transaction, err error) {
+	if common.HexToAddress(from) == common.HexToAddress("0") || !common.IsHexAddress(from) {
 		return nil, types2.FromAccountError
 	}
-	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
+	if common.HexToAddress(to) == common.HexToAddress("0") || !common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
-	if ddcId <= 0 {
+	if ddcID <= 0 {
 		return nil, types2.DDCIdError
 	}
 
 	//设置opts
 	d.SetOpts(opts)
-	signedTx, err = handler.GetDDC721().SafeTransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcId), data)
+	signedTx, err = handler.GetDDC721().SafeTransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcID), data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeTransferFrom: %v", err.Error())
 		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
@@ -208,24 +208,24 @@ func (d *DDC721Service) SafeTransferFrom(opts *bind.TransactOpts, from, to strin
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
 // @param from 拥有者账户
 // @param to 接收者账户
-// @param ddcId ddc唯一标识
+// @param ddcID ddc唯一标识
 // @return signedTx 签名好的交易
 // @return error
-func (d *DDC721Service) TransferFrom(opts *bind.TransactOpts, from, to string, ddcId int64) (signedTx *types.Transaction, err error) {
+func (d *DDC721Service) TransferFrom(opts *bind.TransactOpts, from, to string, ddcID int64) (signedTx *types.Transaction, err error) {
 
-	if common.HexToAddress(from)==common.HexToAddress("0")||!common.IsHexAddress(from) {
+	if common.HexToAddress(from) == common.HexToAddress("0") || !common.IsHexAddress(from) {
 		return nil, types2.FromAccountError
 	}
-	if common.HexToAddress(to)==common.HexToAddress("0")||!common.IsHexAddress(to) {
+	if common.HexToAddress(to) == common.HexToAddress("0") || !common.IsHexAddress(to) {
 		return nil, types2.ToAccountError
 	}
-	if ddcId <= 0 {
+	if ddcID <= 0 {
 		return nil, types2.DDCIdError
 	}
 
 	//设置opts
 	d.SetOpts(opts)
-	signedTx, err = handler.GetDDC721().TransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcId))
+	signedTx, err = handler.GetDDC721().TransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute TransferFrom: %v", err.Error())
 		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
@@ -238,18 +238,18 @@ func (d *DDC721Service) TransferFrom(opts *bind.TransactOpts, from, to string, d
 // @Description: DDC拥有者或DDC授权者可以通过调用该方法进行DDC的销毁
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @return signedTx 签名好的交易
 // @return error
-func (d *DDC721Service) Burn(opts *bind.TransactOpts, ddcId int64) (signedTx *types.Transaction, err error) {
+func (d *DDC721Service) Burn(opts *bind.TransactOpts, ddcID int64) (signedTx *types.Transaction, err error) {
 
-	if ddcId <= 0 {
+	if ddcID <= 0 {
 		return nil, types2.DDCIdError
 	}
 
 	//设置opts
 	d.SetOpts(opts)
-	signedTx, err = handler.GetDDC721().Burn(opts, big.NewInt(ddcId))
+	signedTx, err = handler.GetDDC721().Burn(opts, big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute Burn: %v", err.Error())
 		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
@@ -265,7 +265,7 @@ func (d *DDC721Service) Burn(opts *bind.TransactOpts, ddcId int64) (signedTx *ty
 // @return uint64 ddc的数量
 // @return error
 func (d *DDC721Service) BalanceOf(owner string) (uint64, error) {
-	if common.HexToAddress(owner)==common.HexToAddress("0")||!common.IsHexAddress(owner) {
+	if common.HexToAddress(owner) == common.HexToAddress("0") || !common.IsHexAddress(owner) {
 		return 0, types2.OwnerAccountError
 	}
 
@@ -281,15 +281,15 @@ func (d *DDC721Service) BalanceOf(owner string) (uint64, error) {
 // OwnerOf
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法查询当前DDC的拥有者
 // @receiver d
-// @param ddcId ddc唯一标识
+// @param ddcID ddc唯一标识
 // @return string 拥有者账户
 // @return error
-func (d *DDC721Service) OwnerOf(ddcId int64) (string, error) {
-	if ddcId <= 0 {
+func (d *DDC721Service) OwnerOf(ddcID int64) (string, error) {
+	if ddcID <= 0 {
 		return "", types2.DDCIdError
 	}
 
-	owner, err := handler.GetDDC721().OwnerOf(nil, big.NewInt(ddcId))
+	owner, err := handler.GetDDC721().OwnerOf(nil, big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute OwnerOf: %v", err.Error())
 		return "", types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -331,11 +331,11 @@ func (d *DDC721Service) Symbol() (string, error) {
 // DdcURI
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法查询当前DDC的资源标识符
 // @receiver d
-// @param ddcId DDC唯一标识符
+// @param ddcID DDC唯一标识符
 // @return string DDC资源标识符
 // @return error
-func (d *DDC721Service) DdcURI(ddcId int64) (string, error) {
-	ddcURI, err := handler.GetDDC721().DdcURI(nil, big.NewInt(ddcId))
+func (d *DDC721Service) DdcURI(ddcID int64) (string, error) {
+	ddcURI, err := handler.GetDDC721().DdcURI(nil, big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute DdcURI: %v", err.Error())
 		return "", types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -348,12 +348,12 @@ func (d *DDC721Service) DdcURI(ddcId int64) (string, error) {
 // @Description: DDC拥有者或DDC授权者通过调用该方法对DDC的资源标识符进行设置
 // @receiver d
 // @param opts opts.Price和opts.Signer为空时，默认使用初始化client时set的price和signer
-// @param ddcId DDC唯一标识
+// @param ddcID DDC唯一标识
 // @param ddcURI DDC资源标识符
 // @return signedTx 签名好的交易
 // @return err
-func (d *DDC721Service) SetURI(opts *bind.TransactOpts, ddcId int64, ddcURI string) (signedTx *types.Transaction, err error) {
-	if ddcId <= 0 {
+func (d *DDC721Service) SetURI(opts *bind.TransactOpts, ddcID int64, ddcURI string) (signedTx *types.Transaction, err error) {
+	if ddcID <= 0 {
 		return nil, types2.DDCIdError
 	}
 	if len(ddcURI) == 0 {
@@ -362,7 +362,7 @@ func (d *DDC721Service) SetURI(opts *bind.TransactOpts, ddcId int64, ddcURI stri
 
 	//设置opts
 	d.SetOpts(opts)
-	signedTx, err = handler.GetDDC721().SetURI(opts, big.NewInt(ddcId), ddcURI)
+	signedTx, err = handler.GetDDC721().SetURI(opts, big.NewInt(ddcID), ddcURI)
 	if err != nil {
 		log.Error.Printf("failed to execute SetURI: %v", err.Error())
 		return signedTx, types2.NewSDKError(types2.TransactError.Error(), err.Error())
