@@ -30,11 +30,11 @@ jobs:
           skip-build-cache: true
           skip-pkg-cache: true
           
-  build:
+#   build:
 #     needs: golangci-lint
-    runs-on: ubuntu-lastest
-    steps:
-    - uses: actions/checkout@v3
+#     runs-on: ubuntu-lastest
+#     steps:
+#     - uses: actions/checkout@v3
 
     - name: Set up Go
       uses: actions/setup-go@v3
