@@ -31,7 +31,7 @@ jobs:
           skip-pkg-cache: true
           
   build:
-    needs: golangci-lint
+#     needs: golangci-lint
     runs-on: ubuntu-lastest
     steps:
     - uses: actions/checkout@v3
