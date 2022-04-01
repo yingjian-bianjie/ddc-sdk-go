@@ -144,7 +144,7 @@ func (b Base) HexToBech32(addr string) (string, error) {
 	}
 	t, err := utils.ConvertAndEncode("iaa", bz)
 	if err != nil {
-		log.Error.Printf("convert address", err.Error())
+		log.Error.Printf("convert address: %v", err.Error())
 		return "", err
 	}
 
