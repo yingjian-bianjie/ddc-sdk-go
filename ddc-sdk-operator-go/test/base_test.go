@@ -19,6 +19,6 @@ func TestGetDDCId(t *testing.T) {
 func TestCreateAccount(t *testing.T) {
 	fmt.Println(client.CreateAccount())
 }
-func TestHexToBech32(t *testing.T){
+func TestHexToBech32(t *testing.T) {
 	fmt.Println(client.HexToBech32("0x5BD8DE9E786FED6A2755CF1BB1E0D322B0827612"))
 }

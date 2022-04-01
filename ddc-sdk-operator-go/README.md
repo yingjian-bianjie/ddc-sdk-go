@@ -5,43 +5,44 @@
 [![License：Apache](https://camo.githubusercontent.com/13258d937f88709447768f3df4a63170ec889e741d0feaa1d5b2c3f8536dc567/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f6c6963656e73652f697269736e65742f697269736875622e737667)](https://www.apache.org/licenses/LICENSE-2.0)
 
 - [DDC-SDK-Go](#ddc-sdk-go)
-  - [运营方可调用的如下方法：](#运营方可调用的如下方法)
-    - [1.初始化Client (连接测试网)](#1初始化client-连接测试网)
-    - [2.BSN-DDC-权限管理](#2bsn-ddc-权限管理)
-    - [3.BSN-DDC-费用管理](#3bsn-ddc-费用管理)
-    - [4.BSN-DDC-721](#4bsn-ddc-721)
-    - [5.BSN-DDC-1155](#5bsn-ddc-1155)
-    - [6.BSN-DDC-交易查询](#6bsn-ddc-交易查询)
-    - [7.BSN-DDC-区块查询](#7bsn-ddc-区块查询)
-    - [8.BSN-DDC-数据解析](#8bsn-ddc-数据解析)
-    - [9.离线账户创建](#9离线账户创建)
-  - [平台方可调用的如下方法：](#平台方可调用的如下方法)
-    - [1.初始化Client (连接测试网)](#1初始化client-连接测试网-1)
-    - [2.BSN-DDC-权限管理](#2bsn-ddc-权限管理-1)
-    - [3.BSN-DDC-费用管理](#3bsn-ddc-费用管理-1)
-    - [4.BSN-DDC-721](#4bsn-ddc-721-1)
-    - [5.BSN-DDC-1155](#5bsn-ddc-1155-1)
-    - [6.BSN-DDC-交易查询](#6bsn-ddc-交易查询-1)
-    - [7.BSN-DDC-区块查询](#7bsn-ddc-区块查询-1)
-    - [8.BSN-DDC-数据解析](#8bsn-ddc-数据解析-1)
-    - [9.离线账户创建](#9离线账户创建-1)
-  - [终端用户可调用的如下方法：](#终端用户可调用的如下方法)
-    - [1.初始化Client (连接测试网)](#1初始化client-连接测试网-2)
-    - [2.BSN-DDC-权限管理](#2bsn-ddc-权限管理-2)
-    - [3.BSN-DDC-费用管理](#3bsn-ddc-费用管理-2)
-    - [4.BSN-DDC-721](#4bsn-ddc-721-2)
-    - [5.BSN-DDC-1155](#5bsn-ddc-1155-2)
-    - [6.BSN-DDC-交易查询](#6bsn-ddc-交易查询-2)
-    - [7.BSN-DDC-区块查询](#7bsn-ddc-区块查询-2)
-    - [8.BSN-DDC-数据解析](#8bsn-ddc-数据解析-2)
-    - [9.离线账户创建](#9离线账户创建-2)
-  - [测试用例](#测试用例)
+    - [运营方可调用的如下方法：](#运营方可调用的如下方法)
+        - [1.初始化Client (连接测试网)](#1初始化client-连接测试网)
+        - [2.BSN-DDC-权限管理](#2bsn-ddc-权限管理)
+        - [3.BSN-DDC-费用管理](#3bsn-ddc-费用管理)
+        - [4.BSN-DDC-721](#4bsn-ddc-721)
+        - [5.BSN-DDC-1155](#5bsn-ddc-1155)
+        - [6.BSN-DDC-交易查询](#6bsn-ddc-交易查询)
+        - [7.BSN-DDC-区块查询](#7bsn-ddc-区块查询)
+        - [8.BSN-DDC-数据解析](#8bsn-ddc-数据解析)
+        - [9.离线账户创建](#9离线账户创建)
+    - [平台方可调用的如下方法：](#平台方可调用的如下方法)
+        - [1.初始化Client (连接测试网)](#1初始化client-连接测试网-1)
+        - [2.BSN-DDC-权限管理](#2bsn-ddc-权限管理-1)
+        - [3.BSN-DDC-费用管理](#3bsn-ddc-费用管理-1)
+        - [4.BSN-DDC-721](#4bsn-ddc-721-1)
+        - [5.BSN-DDC-1155](#5bsn-ddc-1155-1)
+        - [6.BSN-DDC-交易查询](#6bsn-ddc-交易查询-1)
+        - [7.BSN-DDC-区块查询](#7bsn-ddc-区块查询-1)
+        - [8.BSN-DDC-数据解析](#8bsn-ddc-数据解析-1)
+        - [9.离线账户创建](#9离线账户创建-1)
+    - [终端用户可调用的如下方法：](#终端用户可调用的如下方法)
+        - [1.初始化Client (连接测试网)](#1初始化client-连接测试网-2)
+        - [2.BSN-DDC-权限管理](#2bsn-ddc-权限管理-2)
+        - [3.BSN-DDC-费用管理](#3bsn-ddc-费用管理-2)
+        - [4.BSN-DDC-721](#4bsn-ddc-721-2)
+        - [5.BSN-DDC-1155](#5bsn-ddc-1155-2)
+        - [6.BSN-DDC-交易查询](#6bsn-ddc-交易查询-2)
+        - [7.BSN-DDC-区块查询](#7bsn-ddc-区块查询-2)
+        - [8.BSN-DDC-数据解析](#8bsn-ddc-数据解析-2)
+        - [9.离线账户创建](#9离线账户创建-2)
+    - [测试用例](#测试用例)
 
 ## 运营方可调用的如下方法：
 
 ### 1.初始化Client (连接测试网)
 
 初始化client时，可设置：签名方法、GasPrice、GatewayUrl以及相关的合约地址等，具体可设置项见以下示例：
+
 ```go
     //初始化clientBuilder
     clientBuilder = app.DDCSdkClientBuilder{}
@@ -59,7 +60,9 @@
         RegisterLog("./log.log").//设置日志输出的文件路径
         Build()
 ```
+
 其中实现签名接口的示例如下：
+
 ```go
 type SignListener struct {
 }
@@ -105,10 +108,13 @@ func StringToPrivateKey(privateKeyStr string) (*ecdsa.PrivateKey, error) {
 ### 2.BSN-DDC-权限管理
 
 在调用权限管理的方法前需要先获取对应的service：
+
 ```go
 var authorityService = client.GetAuthorityService()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 
 // AddAccountByOperator
@@ -169,10 +175,13 @@ AddFunction(opts *bind.TransactOpts, role uint8, ctrAddr string, sig [4]byte) (s
 ### 3.BSN-DDC-费用管理
 
 在调用费用管理的方法前需要先获取对应的service：
+
 ```go
 var chargeService = client.GetChargeService()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 // Recharge
 // @Description:运营方、平台方调用该接口为所属同一方的同一级别账户或者下级账户充值
@@ -244,10 +253,13 @@ DelDDC(opts *bind.TransactOpts, contrAddr string) (signedTx *types.Transaction, 
 ### 4.BSN-DDC-721
 
 在调用ddc721的方法前需要先获取对应的service：
+
 ```go
 var ddc721Service = client.GetDDC721Service()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 // Approve
 // @Description: DDC拥有者可以通过调用该方法进行DDC的授权，发起者需要是DDC的拥有者
@@ -398,10 +410,13 @@ SetNameAndSymbol(opts *bind.TransactOpts, name, symbol string) (signedTx *types.
 ### 5.BSN-DDC-1155
 
 在调用ddc1155的方法前需要先获取对应的service：
+
 ```go
 var ddc1155Service = client.GetDDC1155Service()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 // SetApprovalForAll
 // @Description: DDC拥有者可以通过调用该方法进行账户授权，发起者需要是DDC的拥有者
@@ -525,6 +540,7 @@ SetURI(opts *bind.TransactOpts, owner string, ddcId int64, ddcURI string) (signe
 ### 6.BSN-DDC-交易查询
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // GetTransByHash
 // @Description: 运营方或平台方根据交易哈希对交易信息进行查询
@@ -563,6 +579,7 @@ GetTimeByTxHash(txHash string) (uint64, error)
 ### 7.BSN-DDC-区块查询
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // GetBlockByNumber
 // @Description: 运营方或平台方根据区块高度对区块信息进行查询，并解析区块数据返回给运营方或平台方
@@ -576,6 +593,7 @@ GetBlockByNumber(blockNumber int64) (*types.Block, error)
 ### 8.BSN-DDC-数据解析
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // GetTxEvents
 // @Description: 获取指定交易中的所有events
@@ -597,6 +615,7 @@ GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error)
 ### 9.离线账户创建
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // CreateAccount
 // @Description:可以通过此方法生成离线账户
@@ -611,6 +630,7 @@ CreateAccount() (*dto.Account, error)
 ### 1.初始化Client (连接测试网)
 
 初始化client时，可设置：签名方法、GasPrice、GatewayUrl以及相关的合约地址等，具体可设置项见以下示例：
+
 ```go
     //初始化clientBuilder
     clientBuilder = app.DDCSdkClientBuilder{}
@@ -628,7 +648,9 @@ CreateAccount() (*dto.Account, error)
         RegisterLog("./log.log").//设置日志输出的文件路径
         Build()
 ```
+
 其中实现签名接口的示例如下：
+
 ```go
 type SignListener struct {
 }
@@ -674,10 +696,13 @@ func StringToPrivateKey(privateKeyStr string) (*ecdsa.PrivateKey, error) {
 ### 2.BSN-DDC-权限管理
 
 在调用权限管理的方法前需要先获取对应的service：
+
 ```go
 var authorityService = client.GetAuthorityService()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 // GetAccount
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法进行DDC账户信息的查询
@@ -702,10 +727,13 @@ UpdateAccState(opts *bind.TransactOpts, account string, state uint8, changePlatf
 ### 3.BSN-DDC-费用管理
 
 在调用费用管理的方法前需要先获取对应的service：
+
 ```go
 var chargeService = client.GetChargeService()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 // Recharge
 // @Description:运营方、平台方调用该接口为所属同一方的同一级别账户或者下级账户充值
@@ -737,12 +765,14 @@ QueryFee(contrAddr string, sig [4]byte) (uint32, error)
 
 ### 4.BSN-DDC-721
 
-
 在调用ddc721的方法前需要先获取对应的service：
+
 ```go
 var ddc721Service = client.GetDDC721Service()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 
 // Mint
@@ -887,10 +917,13 @@ SetURI(opts *bind.TransactOpts, ddcId int64, ddcURI string) (signedTx *types.Tra
 ### 5.BSN-DDC-1155
 
 在调用ddc1155的方法前需要先获取对应的service：
+
 ```go
 var ddc1155Service = client.GetDDC1155Service()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 // SafeMint
 // @Description: 平台方或终端用户可以通过调用该方法进行DDC的安全生成
@@ -1020,6 +1053,7 @@ SetURI(opts *bind.TransactOpts, owner string, ddcId int64, ddcURI string) (signe
 ### 6.BSN-DDC-交易查询
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // GetTransByHash
 // @Description: 运营方或平台方根据交易哈希对交易信息进行查询
@@ -1058,6 +1092,7 @@ GetTimeByTxHash(txHash string) (uint64, error)
 ### 7.BSN-DDC-区块查询
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // GetBlockByNumber
 // @Description: 运营方或平台方根据区块高度对区块信息进行查询，并解析区块数据返回给运营方或平台方
@@ -1071,6 +1106,7 @@ GetBlockByNumber(blockNumber int64) (*types.Block, error)
 ### 8.BSN-DDC-数据解析
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // GetTxEvents
 // @Description: 获取指定交易中的所有events
@@ -1088,9 +1124,11 @@ GetTxEvents(txHash common.Hash) (events []interface{}, err error)
 // @return error
 GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error)
 ```
+
 ### 9.离线账户创建
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // CreateAccount
 // @Description:可以通过此方法生成离线账户
@@ -1105,6 +1143,7 @@ CreateAccount() (*dto.Account, error)
 ### 1.初始化Client (连接测试网)
 
 初始化client时，可设置：签名方法、GasPrice、GatewayUrl以及相关的合约地址等，具体可设置项见以下示例：
+
 ```go
     //初始化clientBuilder
     clientBuilder = app.DDCSdkClientBuilder{}
@@ -1122,7 +1161,9 @@ CreateAccount() (*dto.Account, error)
         RegisterLog("./log.log").//设置日志输出的文件路径
         Build()
 ```
+
 其中实现签名接口的示例如下：
+
 ```go
 type SignListener struct {
 }
@@ -1168,10 +1209,13 @@ func StringToPrivateKey(privateKeyStr string) (*ecdsa.PrivateKey, error) {
 ### 2.BSN-DDC-权限管理
 
 在调用权限管理的方法前需要先获取对应的service：
+
 ```go
 var authorityService = client.GetAuthorityService()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 // GetAccount
 // @Description: 运营方、平台方以及终端用户可以通过调用该方法进行DDC账户信息的查询
@@ -1185,10 +1229,13 @@ GetAccount(account string) (*dto.AccountInfo, error)
 ### 3.BSN-DDC-费用管理
 
 在调用费用管理的方法前需要先获取对应的service：
+
 ```go
 var chargeService = client.GetChargeService()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 // BalanceOf
 // @Description: 查询指定账户的余额
@@ -1211,10 +1258,13 @@ QueryFee(contrAddr string, sig [4]byte) (uint32, error)
 ### 4.BSN-DDC-721
 
 在调用ddc721的方法前需要先获取对应的service：
+
 ```go
 var ddc721Service = client.GetDDC721Service()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 
 // Mint
@@ -1359,10 +1409,13 @@ SetURI(opts *bind.TransactOpts, ddcId int64, ddcURI string) (signedTx *types.Tra
 ### 5.BSN-DDC-1155
 
 在调用ddc1155的方法前需要先获取对应的service：
+
 ```go
 var ddc1155Service = client.GetDDC1155Service()
 ```
+
 接下来可通过service调用的方法如下：
+
 ```go
 // SafeMint
 // @Description: 平台方或终端用户可以通过调用该方法进行DDC的安全生成
@@ -1492,6 +1545,7 @@ SetURI(opts *bind.TransactOpts, owner string, ddcId int64, ddcURI string) (signe
 ### 6.BSN-DDC-交易查询
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // GetTransByHash
 // @Description: 运营方或平台方根据交易哈希对交易信息进行查询
@@ -1530,6 +1584,7 @@ GetTimeByTxHash(txHash string) (uint64, error)
 ### 7.BSN-DDC-区块查询
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // GetBlockByNumber
 // @Description: 运营方或平台方根据区块高度对区块信息进行查询，并解析区块数据返回给运营方或平台方
@@ -1539,7 +1594,6 @@ GetTimeByTxHash(txHash string) (uint64, error)
 // @return error
 GetBlockByNumber(blockNumber int64) (*types.Block, error)
 ```
-
 
 ### 8.BSN-DDC-数据解析
 
@@ -1560,9 +1614,11 @@ GetTxEvents(txHash common.Hash) (events []interface{}, err error)
 // @return error
 GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error)
 ```
+
 ### 9.离线账户创建
 
 使用client或任意service即可调用以下方法：
+
 ```go
 // CreateAccount
 // @Description:可以通过此方法生成离线账户
