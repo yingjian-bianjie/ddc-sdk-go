@@ -134,13 +134,17 @@ func (b Base) Bech32ToHex(addr string) (string, error) {
 // HexToBech32
 // @Description: 以太坊账户格式转irita链账户
 // @receiver b
-// @param addr 以太坊账户
+// @param addr 0x开头的以太坊账户
 // @return string irita链账户
 // @return error
-func (b Base) HexToBech32(addr []byte) (string, error) {
-	t, err := utils.ConvertAndEncode("iaa", addr)
+func (b Base) HexToBech32(addr string) (string, error) {
+	bz, err := hexutil.Decode(addr)
 	if err != nil {
-		log.Error.Printf("failed to convert address: %v", err.Error())
+		return "", err
+	}
+	t, err := utils.ConvertAndEncode("iaa", bz)
+	if err != nil {
+		log.Error.Printf("convert address", err.Error())
 		return "", err
 	}
 
