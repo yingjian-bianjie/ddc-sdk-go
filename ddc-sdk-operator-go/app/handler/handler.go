@@ -32,11 +32,15 @@ func GetConn() (conn *ethclient.Client) {
 		var client *rpc.Client
 		client, err = rpc.DialHTTPWithClient(config.Info.OpbGatewayAddress(), new(http.Client))
 		//设置请求头参数
-		client.SetHeader(config.Info.HeaderKey(), config.Info.HeaderValue())
+		if config.Info.HeaderKey() != "" && config.Info.HeaderValue() != "" {
+			client.SetHeader(config.Info.HeaderKey(), config.Info.HeaderValue())
+		}
 		conn = ethclient.NewClient(client)
 	default:
 		//预留
-		ctx = context.WithValue(ctx, myString(config.Info.HeaderKey()), config.Info.HeaderValue())
+		if config.Info.HeaderKey() != "" && config.Info.HeaderValue() != "" {
+			ctx = context.WithValue(ctx, myString(config.Info.HeaderKey()), config.Info.HeaderValue())
+		}
 		conn, err = ethclient.DialContext(ctx, config.Info.OpbGatewayAddress())
 	}
 
