@@ -67,22 +67,32 @@ func (b Base) GetNonce(addr common.Address) (uint64, error) {
 // @receiver b
 // @param hash 交易哈希
 // @return uint64 对应的ddcId
-func (b Base) DDCIdByHash(hash string) uint64 {
+func (b Base) DDCIdByHash(hash string) (res []uint64) {
 	events, err := b.GetTxEvents(common.HexToHash(hash))
 	if err != nil {
 		log.Error.Printf("failed to GetTxEvents: %v", err.Error())
-		return 0
+		return nil
 	}
 
 	for _, e := range events {
-		res, ok := e.(*contracts.DDC721Transfer)
-		if !ok {
-			continue
+		res1, ok := e.(*contracts.DDC721Transfer)
+		if ok {
+			return []uint64{res1.DdcId.Uint64()}
 		}
-		return res.DdcId.Uint64()
+		res2, ok := e.(*contracts.DDC1155TransferSingle)
+		if ok {
+			return []uint64{res2.DdcId.Uint64()}
+		}
+		res3, ok := e.(*contracts.DDC1155TransferBatch)
+		if ok {
+			for _, ddcID := range res3.DdcIds {
+				res = append(res, ddcID.Uint64())
+			}
+			return res
+		}
 	}
 
-	return 0
+	return nil
 }
 
 // NewRawTx
