@@ -66,7 +66,7 @@ func (b Base) GetNonce(addr common.Address) (uint64, error) {
 // @Description: 通过mint的交易hash查询创建ddc时生成的ddcId
 // @receiver b
 // @param hash 交易哈希
-// @return uint64 对应的ddcId
+// @return []uint64 对应的ddcId的集合
 func (b Base) DDCIdByHash(hash string) (res []uint64) {
 	events, err := b.GetTxEvents(common.HexToHash(hash))
 	if err != nil {

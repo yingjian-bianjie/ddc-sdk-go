@@ -542,30 +542,30 @@ SetURI(opts *bind.TransactOpts, owner string, ddcId int64, ddcURI string) (signe
 使用client或任意service即可调用以下方法：
 
 ```go
-// GetTransByHash
+// GetTxByHash
 // @Description: 运营方或平台方根据交易哈希对交易信息进行查询
 // @receiver t
 // @param txHash: 交易哈希
 // @return *types.Transaction: 交易信息
 // @return bool： pending状态
 // @return error
-GetTransByHash(txHash string) (*types.Transaction, bool, error)
+GetTxByHash(txHash string) (*types.Transaction, bool, error)
 
-// GetTransReceipt
+// GetTxReceipt
 // @Description: 运营方或平台方根据交易哈希对交易回执信息进行查询。
 // @receiver t
 // @param txHash: 交易哈希
 // @return string： 交易回执
 // @return error
-GetTransReceipt(txHash string) (*types.Receipt, error)
+GetTxReceipt(txHash string) (*types.Receipt, error)
 
-// GetTransStatus
+// GetTxStatus
 // @Description: 运营方或平台方根据交易哈希查询交易状态是否成功
 // @receiver t
 // @param txHash: 交易哈希
 // @return bool：交易是否成功
 // @return error
-GetTransStatus(txHash string) (bool, error)
+GetTxStatus(txHash string) (bool, error)
 
 // GetTimeByTxHash
 // @Description: 通过txHash查询所在块的时间
@@ -1055,30 +1055,30 @@ SetURI(opts *bind.TransactOpts, owner string, ddcId int64, ddcURI string) (signe
 使用client或任意service即可调用以下方法：
 
 ```go
-// GetTransByHash
+// GetTxByHash
 // @Description: 运营方或平台方根据交易哈希对交易信息进行查询
 // @receiver t
 // @param txHash: 交易哈希
 // @return *types.Transaction: 交易信息
 // @return bool： pending状态
 // @return error
-GetTransByHash(txHash string) (*types.Transaction, bool, error)
+GetTxByHash(txHash string) (*types.Transaction, bool, error)
 
-// GetTransReceipt
+// GetTxReceipt
 // @Description: 运营方或平台方根据交易哈希对交易回执信息进行查询。
 // @receiver t
 // @param txHash: 交易哈希
 // @return string： 交易回执
 // @return error
-GetTransReceipt(txHash string) (*types.Receipt, error)
+GetTxReceipt(txHash string) (*types.Receipt, error)
 
-// GetTransStatus
+// GetTxStatus
 // @Description: 运营方或平台方根据交易哈希查询交易状态是否成功
 // @receiver t
 // @param txHash: 交易哈希
 // @return bool：交易是否成功
 // @return error
-GetTransStatus(txHash string) (bool, error)
+GetTxStatus(txHash string) (bool, error)
 
 // GetTimeByTxHash
 // @Description: 通过txHash查询所在块的时间
@@ -1547,30 +1547,30 @@ SetURI(opts *bind.TransactOpts, owner string, ddcId int64, ddcURI string) (signe
 使用client或任意service即可调用以下方法：
 
 ```go
-// GetTransByHash
+// GetTxByHash
 // @Description: 运营方或平台方根据交易哈希对交易信息进行查询
 // @receiver t
 // @param txHash: 交易哈希
 // @return *types.Transaction: 交易信息
 // @return bool： pending状态
 // @return error
-GetTransByHash(txHash string) (*types.Transaction, bool, error)
+GetTxByHash(txHash string) (*types.Transaction, bool, error)
 
-// GetTransReceipt
+// GetTxReceipt
 // @Description: 运营方或平台方根据交易哈希对交易回执信息进行查询。
 // @receiver t
 // @param txHash: 交易哈希
 // @return string： 交易回执
 // @return error
-GetTransReceipt(txHash string) (*types.Receipt, error)
+GetTxReceipt(txHash string) (*types.Receipt, error)
 
-// GetTransStatus
+// GetTxStatus
 // @Description: 运营方或平台方根据交易哈希查询交易状态是否成功
 // @receiver t
 // @param txHash: 交易哈希
 // @return bool：交易是否成功
 // @return error
-GetTransStatus(txHash string) (bool, error)
+GetTxStatus(txHash string) (bool, error)
 
 // GetTimeByTxHash
 // @Description: 通过txHash查询所在块的时间
