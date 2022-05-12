@@ -235,7 +235,7 @@ func (d *DDC1155Service) BurnBatch(opts *bind.TransactOpts, owner string, ddcIds
 		return nil, types2.DDCIdError
 	}
 	var ddcIDs []*big.Int
-	for ddcID := range ddcIds {
+	for _, ddcID := range ddcIds {
 		if ddcID <= 0 {
 			return nil, types2.DDCIdError
 		}
