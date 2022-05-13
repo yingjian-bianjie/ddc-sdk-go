@@ -64,3 +64,22 @@ func (a *AuthorityService) UpdateAccState(opts *bind.TransactOpts, account strin
 
 	return signedTx, nil
 }
+
+// HasFunctionPermission
+// @Description: 运营方调用该方法查询平台方和终端用户是否有调用对应方法的权限
+// @receiver a
+// @param accAddr 账户地址
+// @param ctrAddr 合约地址
+// @param sig 目标方法对应的sig编码
+// @return bool 是否已被授权
+// @return error
+func (a *AuthorityService) HasFunctionPermission(accAddr, ctrAddr string, sig [4]byte) (bool, error) {
+
+	IsPermission, err := handler.GetAuthority().HasFunctionPermission(nil, common.HexToAddress(accAddr), common.HexToAddress(ctrAddr), sig)
+	if err != nil {
+		log.Error.Printf("failed to execute HasFunctionPermission: %v", err.Error())
+		return false, err
+	}
+
+	return IsPermission, nil
+}
