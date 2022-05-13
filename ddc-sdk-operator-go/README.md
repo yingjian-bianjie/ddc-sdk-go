@@ -170,6 +170,15 @@ CrossPlatformApproval(opts *bind.TransactOpts, from, to string, approved bool) (
 // @return error
 AddFunction(opts *bind.TransactOpts, role uint8, ctrAddr string, sig [4]byte) (signedTx *types.Transaction, err error)
 
+// HasFunctionPermission
+// @Description: 运营方调用该方法查询平台方和终端用户是否有调用对应方法的权限
+// @receiver a
+// @param accAddr 账户地址
+// @param ctrAddr 合约地址
+// @param sig 目标方法对应的sig编码
+// @return bool 是否已被授权
+// @return error
+func (a *AuthorityService) HasFunctionPermission(accAddr, ctrAddr string, sig [4]byte) (bool, error) 
 ```
 
 ### 3.BSN-DDC-费用管理
@@ -722,6 +731,16 @@ GetAccount(account string) (*dto.AccountInfo, error)
 // @return signedTx 签名好的交易
 // @return error
 UpdateAccState(opts *bind.TransactOpts, account string, state uint8, changePlatformState bool) (signedTx *types.Transaction, err error)
+
+// HasFunctionPermission
+// @Description: 运营方调用该方法查询平台方和终端用户是否有调用对应方法的权限
+// @receiver a
+// @param accAddr 账户地址
+// @param ctrAddr 合约地址
+// @param sig 目标方法对应的sig编码
+// @return bool 是否已被授权
+// @return error
+func (a *AuthorityService) HasFunctionPermission(accAddr, ctrAddr string, sig [4]byte) (bool, error) 
 ```
 
 ### 3.BSN-DDC-费用管理
