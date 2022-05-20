@@ -63,35 +63,40 @@ func (b Base) GetNonce(addr common.Address) (uint64, error) {
 }
 
 // DDCIdByHash
-// @Description: 通过mint的交易hash查询创建ddc时生成的ddcId
+// @Description: 通过交易hash查询相关ddc的ddcId
 // @receiver b
 // @param hash 交易哈希
 // @return []uint64 对应的ddcId的集合
 func (b Base) DDCIdByHash(hash string) (res []uint64) {
+	// 查出相关事件
 	events, err := b.GetTxEvents(common.HexToHash(hash))
 	if err != nil {
 		log.Error.Printf("failed to GetTxEvents: %v", err.Error())
 		return nil
 	}
-
-	for _, e := range events {
-		res1, ok := e.(*contracts.DDC721Transfer)
-		if ok {
-			return []uint64{res1.DdcId.Uint64()}
-		}
-		res2, ok := e.(*contracts.DDC1155TransferSingle)
-		if ok {
-			return []uint64{res2.DdcId.Uint64()}
-		}
-		res3, ok := e.(*contracts.DDC1155TransferBatch)
-		if ok {
-			for _, ddcID := range res3.DdcIds {
+	for _, event := range events {
+		switch e := event.(type) {
+		case *contracts.DDC721Transfer: // 创建、转让、销毁
+			return append(res, e.DdcId.Uint64())
+		case *contracts.DDC721SetURI:
+			return append(res, e.DdcId.Uint64())
+		case *contracts.DDC721Approval:
+			return append(res, e.DdcId.Uint64())
+		case *contracts.DDC721EnterBlacklist:
+			return append(res, e.DdcId.Uint64())
+		case *contracts.DDC721ExitBlacklist:
+			return append(res, e.DdcId.Uint64())
+		case *contracts.DDC1155TransferSingle:
+			return append(res, e.DdcId.Uint64())
+		case *contracts.DDC1155TransferBatch:
+			for _, ddcID := range e.DdcIds {
 				res = append(res, ddcID.Uint64())
 			}
-			return res
+			return
+		case *contracts.DDC1155SetURI:
+			return append(res,e.DdcId.Uint64())
 		}
 	}
-
 	return nil
 }
 
