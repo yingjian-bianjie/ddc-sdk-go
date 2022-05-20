@@ -94,7 +94,7 @@ func (b Base) DDCIdByHash(hash string) (res []uint64) {
 			}
 			return
 		case *contracts.DDC1155SetURI:
-			return append(res,e.DdcId.Uint64())
+			return append(res, e.DdcId.Uint64())
 		}
 	}
 	return nil
