@@ -36,7 +36,7 @@ func (d *DDC721Service) Mint(opts *bind.TransactOpts, to, ddcURI string) (signed
 	}
 
 	//设置opts
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	//异步向链上发起交易
 	signedTx, err = handler.GetDDC721().Mint(opts, common.HexToAddress(to), ddcURI)
 	if err != nil {
@@ -63,7 +63,7 @@ func (d *DDC721Service) SafeMint(opts *bind.TransactOpts, to, ddcURI string, dat
 	}
 
 	//设置opts
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC721().SafeMint(opts, common.HexToAddress(to), ddcURI, data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeMint: %v", err.Error())
@@ -91,7 +91,7 @@ func (d *DDC721Service) Approve(opts *bind.TransactOpts, to string, ddcID int64)
 	}
 
 	//设置opts
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC721().Approve(opts, common.HexToAddress(to), big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute FuncApprove: %v", err.Error())
@@ -136,7 +136,7 @@ func (d *DDC721Service) SetApprovalForAll(opts *bind.TransactOpts, operator stri
 	}
 
 	//设置opts
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC721().SetApprovalForAll(opts, common.HexToAddress(operator), approved)
 	if err != nil {
 		log.Error.Printf("failed to execute SetApprovalForAll: %v", err.Error())
@@ -192,7 +192,7 @@ func (d *DDC721Service) SafeTransferFrom(opts *bind.TransactOpts, from, to strin
 	}
 
 	//设置opts
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC721().SafeTransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcID), data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeTransferFrom: %v", err.Error())
@@ -224,7 +224,7 @@ func (d *DDC721Service) TransferFrom(opts *bind.TransactOpts, from, to string, d
 	}
 
 	//设置opts
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC721().TransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute TransferFrom: %v", err.Error())
@@ -248,7 +248,7 @@ func (d *DDC721Service) Burn(opts *bind.TransactOpts, ddcID int64) (signedTx *ty
 	}
 
 	//设置opts
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC721().Burn(opts, big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute Burn: %v", err.Error())
@@ -361,7 +361,7 @@ func (d *DDC721Service) SetURI(opts *bind.TransactOpts, ddcID int64, ddcURI stri
 	}
 
 	//设置opts
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC721().SetURI(opts, big.NewInt(ddcID), ddcURI)
 	if err != nil {
 		log.Error.Printf("failed to execute SetURI: %v", err.Error())

@@ -31,11 +31,11 @@ type Base struct {
 	BlockService
 }
 
-// SetOpts
+// setOpts
 // @Description: 为opts设置GasPrice和Signer
 // @receiver b
 // @param opts
-func (b Base) SetOpts(opts *bind.TransactOpts) {
+func (b Base) setOpts(opts *bind.TransactOpts) {
 
 	if opts.GasPrice == nil {
 		opts.GasPrice = big.NewInt(int64(config.Info.GasPrice()))
@@ -217,7 +217,7 @@ func (b Base) EstimateGasLimit(opts *bind.TransactOpts, contrName, funcName stri
 		log.Error.Printf("failed to pack abiTmp: %v", err.Error())
 		return 0, err
 	}
-	b.SetOpts(opts)
+	b.setOpts(opts)
 	//预估gas
 	gas, err := b.EstimateGas(opts, &contrAddr, input)
 	if err != nil {

@@ -55,7 +55,7 @@ func (a *AuthorityService) UpdateAccState(opts *bind.TransactOpts, account strin
 		return nil, types2.AccountError
 	}
 
-	a.SetOpts(opts)
+	a.setOpts(opts)
 	signedTx, err = handler.GetAuthority().UpdateAccountState(opts, common.HexToAddress(account), state, changePlatformState)
 	if err != nil {
 		log.Error.Printf("failed to execute UpdateAccountState: %v", err.Error())
