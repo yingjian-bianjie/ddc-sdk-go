@@ -38,7 +38,7 @@ func (a *AuthorityService) AddAccountByOperator(opts *bind.TransactOpts, account
 		return nil, types2.AccountNameError
 	}
 
-	a.SetOpts(opts)
+	a.setOpts(opts)
 	signedTx, err = handler.GetAuthority().AddAccountByOperator(opts, common.HexToAddress(account), accName, accDID, leaderDID)
 	if err != nil {
 		log.Error.Printf("failed to execute AddAccountByOperator: %v", err.Error())
@@ -84,7 +84,7 @@ func (a *AuthorityService) UpdateAccState(opts *bind.TransactOpts, account strin
 		return nil, types2.AccountError
 	}
 
-	a.SetOpts(opts)
+	a.setOpts(opts)
 	signedTx, err = handler.GetAuthority().UpdateAccountState(opts, common.HexToAddress(account), state, changePlatformState)
 	if err != nil {
 		log.Error.Printf("failed to execute UpdateAccountState: %v", err.Error())
@@ -112,7 +112,7 @@ func (a *AuthorityService) CrossPlatformApproval(opts *bind.TransactOpts, from, 
 		return nil, types2.ToAccountError
 	}
 
-	a.SetOpts(opts)
+	a.setOpts(opts)
 	signedTx, err = handler.GetAuthority().CrossPlatformApproval(opts, common.HexToAddress(from), common.HexToAddress(to), approved)
 	if err != nil {
 		log.Error.Printf("failed to execute CrossPlatformApproval: %v", err)
@@ -133,7 +133,7 @@ func (a *AuthorityService) CrossPlatformApproval(opts *bind.TransactOpts, from, 
 // @return error
 func (a *AuthorityService) AddFunction(opts *bind.TransactOpts, role uint8, ctrAddr string, sig [4]byte) (signedTx *types.Transaction, err error) {
 
-	a.SetOpts(opts)
+	a.setOpts(opts)
 	signedTx, err = handler.GetAuthority().AddFunction(opts, role, common.HexToAddress(ctrAddr), sig)
 	if err != nil {
 		log.Error.Printf("failed to execute UpdateAccState: %v", err.Error())

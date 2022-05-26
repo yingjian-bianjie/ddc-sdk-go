@@ -36,7 +36,7 @@ func (c *ChargeService) Recharge(opts *bind.TransactOpts, to string, amount int6
 		return nil, types2.AmountError
 	}
 
-	c.SetOpts(opts)
+	c.setOpts(opts)
 	signedTx, err = handler.GetCharge().Recharge(opts, common.HexToAddress(to), big.NewInt(amount))
 	if err != nil {
 		log.Error.Printf("failed to execute Recharge: %v", err.Error())

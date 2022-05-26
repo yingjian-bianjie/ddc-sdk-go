@@ -36,7 +36,7 @@ func (c *ChargeService) Recharge(opts *bind.TransactOpts, to string, amount int6
 		return nil, types2.AmountError
 	}
 
-	c.SetOpts(opts)
+	c.setOpts(opts)
 	signedTx, err = handler.GetCharge().Recharge(opts, common.HexToAddress(to), big.NewInt(amount))
 	if err != nil {
 		log.Error.Printf("failed to execute Recharge: %v", err.Error())
@@ -99,7 +99,7 @@ func (c *ChargeService) SelfRecharge(opts *bind.TransactOpts, amount int64) (sig
 		return nil, types2.AmountError
 	}
 
-	c.SetOpts(opts)
+	c.setOpts(opts)
 	signedTx, err = handler.GetCharge().SelfRecharge(opts, big.NewInt(amount))
 	if err != nil {
 		log.Error.Printf("failed to execute SelfRecharge: %v", err.Error())
@@ -126,7 +126,7 @@ func (c *ChargeService) SetFee(opts *bind.TransactOpts, contrAddr string, sig [4
 		return nil, types2.AmountError
 	}
 
-	c.SetOpts(opts)
+	c.setOpts(opts)
 	signedTx, err = handler.GetCharge().SetFee(opts, common.HexToAddress(contrAddr), sig, amount)
 	if err != nil {
 		log.Error.Printf("failed to execute SetFee: %v", err.Error())
@@ -149,7 +149,7 @@ func (c *ChargeService) DelFee(opts *bind.TransactOpts, contrAddr string, sig [4
 		return nil, types2.ContractAddressError
 	}
 
-	c.SetOpts(opts)
+	c.setOpts(opts)
 	signedTx, err = handler.GetCharge().DelFee(opts, common.HexToAddress(contrAddr), sig)
 	if err != nil {
 		log.Error.Printf("failed to execute DelFee: %v", err.Error())
@@ -171,7 +171,7 @@ func (c *ChargeService) DelDDC(opts *bind.TransactOpts, contrAddr string) (signe
 		return nil, types2.ContractAddressError
 	}
 
-	c.SetOpts(opts)
+	c.setOpts(opts)
 	signedTx, err = handler.GetCharge().DelDDC(opts, common.HexToAddress(contrAddr))
 	if err != nil {
 		log.Error.Printf("failed to execute DelDDC: %v", err.Error())

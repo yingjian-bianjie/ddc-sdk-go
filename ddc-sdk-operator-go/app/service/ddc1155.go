@@ -34,7 +34,7 @@ func (d *DDC1155Service) SetApprovalForAll(opts *bind.TransactOpts, operator str
 		return nil, types2.OperatorAccountError
 	}
 
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC1155().SetApprovalForAll(opts, common.HexToAddress(operator), approved)
 	if err != nil {
 		log.Error.Printf("failed to execute SetApprovalForAll: %v", err.Error())
@@ -94,7 +94,7 @@ func (d *DDC1155Service) SafeTransferFrom(opts *bind.TransactOpts, from, to stri
 		return nil, types2.AmountError
 	}
 
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC1155().SafeTransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), big.NewInt(ddcID), big.NewInt(amount), data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeTransferFrom: %v", err.Error())
@@ -136,7 +136,7 @@ func (d *DDC1155Service) SafeBatchTransferFrom(opts *bind.TransactOpts, from, to
 		amounts = append(amounts, big.NewInt(amount))
 	}
 
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC1155().SafeBatchTransferFrom(opts, common.HexToAddress(from), common.HexToAddress(to), ddcIds, amounts, data)
 	if err != nil {
 		log.Error.Printf("failed to execute SafeBatchTransferFrom: %v", err.Error())
@@ -159,7 +159,7 @@ func (d *DDC1155Service) Freeze(opts *bind.TransactOpts, ddcID int64) (signedTx 
 		return nil, types2.DDCIdError
 	}
 
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC1155().Freeze(opts, big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute Freeze: %v", err.Error())
@@ -182,7 +182,7 @@ func (d *DDC1155Service) UnFreeze(opts *bind.TransactOpts, ddcID int64) (signedT
 		return nil, types2.DDCIdError
 	}
 
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC1155().UnFreeze(opts, big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute UnFreeze: %v", err.Error())
@@ -208,7 +208,7 @@ func (d *DDC1155Service) Burn(opts *bind.TransactOpts, owner string, ddcID int64
 		return nil, types2.DDCIdError
 	}
 
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC1155().Burn(opts, common.HexToAddress(owner), big.NewInt(ddcID))
 	if err != nil {
 		log.Error.Printf("failed to execute Burn: %v", err.Error())
@@ -242,7 +242,7 @@ func (d *DDC1155Service) BurnBatch(opts *bind.TransactOpts, owner string, ddcIds
 		ddcIDs = append(ddcIDs, big.NewInt(int64(ddcID)))
 	}
 
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC1155().BurnBatch(opts, common.HexToAddress(owner), ddcIDs)
 	if err != nil {
 		log.Error.Printf("failed to execute BurnBatch: %v", err.Error())
@@ -333,7 +333,7 @@ func (d *DDC1155Service) SetURI(opts *bind.TransactOpts, owner string, ddcID int
 	if len(ddcURI) == 0 {
 		return nil, types2.DDCURIError
 	}
-	d.SetOpts(opts)
+	d.setOpts(opts)
 	signedTx, err = handler.GetDDC1155().SetURI(opts, common.HexToAddress(owner), big.NewInt(ddcID), ddcURI)
 	if err != nil {
 		log.Error.Printf("failed to execute SetURI: %v", err.Error())
