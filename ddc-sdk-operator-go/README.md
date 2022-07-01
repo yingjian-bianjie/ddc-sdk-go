@@ -159,7 +159,7 @@ AddFunction(opts *bind.TransactOpts, role uint8, ctrAddr string, sig [4]byte) (s
 // @param sig 目标方法对应的sig编码
 // @return bool 是否已被授权
 // @return error
-func (a *AuthorityService) HasFunctionPermission(accAddr, ctrAddr string, sig [4]byte) (bool, error) 
+HasFunctionPermission(accAddr, ctrAddr string, sig [4]byte) (bool, error) 
 ```
 
 ### 3.BSN-DDC-费用管理
