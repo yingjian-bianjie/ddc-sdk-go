@@ -12,19 +12,19 @@ jobs:
     steps:
     - uses: actions/checkout@v3
         
-    - name: Lint ddc-sdk-operator-go
+    - name: Lint evm-ddc-sdk-operator
       uses: golangci/golangci-lint-action@v3.1.0
       with:
-          working-directory: ddc-sdk-operator-go
+          working-directory: evm-ddc-sdk-operator
           version: latest
           # skip cache because of flaky behaviors
           skip-build-cache: true
           skip-pkg-cache: true
           
-    - name: Lint ddc-sdk-platform-go
+    - name: Lint evm-ddc-sdk-platform
       uses: golangci/golangci-lint-action@v3.1.0
       with:
-          working-directory: ddc-sdk-platform-go
+          working-directory: evm-ddc-sdk-platform
           version: latest
           # skip cache because of flaky behaviors
           skip-build-cache: true
@@ -41,19 +41,19 @@ jobs:
       with:
         go-version: 1.17
 
-    - name: Build ddc-sdk-operator-go
-      working-directory: ddc-sdk-operator-go
+    - name: Build evm-ddc-sdk-operator
+      working-directory: evm-ddc-sdk-operator
       run: go build -v ./app/client.go
       
-    - name: Build ddc-sdk-platform-go
-      working-directory: ddc-sdk-platform-go
+    - name: Build evm-ddc-sdk-platform
+      working-directory: evm-ddc-sdk-platform
       run: go build -v ./app/client.go
         
 #     - name: Test
 #       run: |
-#         cd ../ddc-sdk-operator-go/
+#         cd ../evm-ddc-sdk-operator/
 #         go test ./test
-#         cd ../ddc-sdk-platform-go/
+#         cd ../evm-ddc-sdk-platform/
 #         go test ./test
 
 
