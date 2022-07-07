@@ -5,6 +5,6 @@
 
 Golang SDK for BSN DDC
 
-If you are an operator, you can use : [ddc-sdk-operator-go](ddc-sdk-operator-go)
+If you are an operator, you can use : [evm-ddc-sdk-operator](evm-ddc-sdk-operator)
 
-Otherwise, you can use : [ddc-sdk-platform-go](ddc-sdk-platform-go)
+Otherwise, you can use : [evm-ddc-sdk-platform](evm-ddc-sdk-platform)
