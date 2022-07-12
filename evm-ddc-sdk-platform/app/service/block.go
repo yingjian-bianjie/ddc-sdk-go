@@ -226,6 +226,7 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 		log.Error.Printf("failed to execute TransactionReceipt: %v", err.Error())
 		return nil, nil, nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
+	txReceipt = receipt
 	var event interface{}
 	var abi *abi2.ABI
 	//获取交易的logs中的所有log对应的event
@@ -239,7 +240,7 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 				abi, err = contracts.AuthorityMetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get Authority abi: %v", err.Error())
-					return nil, nil, nil, err
+					return nil, txReceipt, ddcIds, err
 				}
 				//2.匹配对应的事件
 				switch l.Topics[0] {
@@ -257,7 +258,7 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 				abi, err = contracts.ChargeMetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get Charge abi: %v", err.Error())
-					return nil, nil, nil, err
+					return nil, txReceipt, ddcIds, err
 				}
 				switch l.Topics[0] {
 				case abi.Events[constant.EventRecharge].ID:
@@ -278,7 +279,7 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 				abi, err = contracts.DDC721MetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get DDC721 abi: %v", err.Error())
-					return nil, nil, nil, err
+					return nil, txReceipt, ddcIds, err
 				}
 				switch l.Topics[0] {
 				case abi.Events[constant.EventTransfer].ID:
@@ -299,7 +300,7 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 				abi, err = contracts.DDC1155MetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get DDC1155 abi: %v", err.Error())
-					return nil, nil, nil, err
+					return nil, txReceipt, ddcIds, err
 				}
 				switch l.Topics[0] {
 				case abi.Events[constant.EventTransferSingle].ID:
@@ -317,7 +318,7 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 		}
 		if err != nil {
 			log.Error.Printf("failed to parse event: %v", err.Error())
-			return nil, nil, nil, err
+			return nil, txReceipt, ddcIds, err
 		}
 		switch e := event.(type) {
 		case *contracts.DDC721Transfer: // 创建、转让、销毁
