@@ -84,7 +84,7 @@ func (b *BlockService) GetBlockDdcs(blockNumber int64) (*dto.BlockDdcInfoBean, e
 	var blockDdcs []dto.DdcInfoBean
 	//查找每笔交易中的event
 	for _, tx := range block.Transactions() {
-		_, txReceipt, ddcId, err := b.GetTxEventsWithReceiptAndDdcId(tx.Hash())
+		_, txReceipt, ddcIds, err := b.GetTxEventsWithReceiptAndDdcId(tx.Hash())
 		if err != nil {
 			log.Error.Printf("failed to get events,receipt,ddcId of Tx: %v,error: %v", tx.Hash(), err.Error())
 			return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
@@ -92,7 +92,7 @@ func (b *BlockService) GetBlockDdcs(blockNumber int64) (*dto.BlockDdcInfoBean, e
 		blockDdcs = append(blockDdcs, dto.DdcInfoBean{
 			Hash:    tx.Hash().String(),
 			Receipt: txReceipt,
-			DdcId:   ddcId,
+			DdcIds:  ddcIds,
 		})
 	}
 	time := block.Time()
@@ -219,15 +219,15 @@ func (b *BlockService) GetTxEvents(txHash common.Hash) (events []interface{}, er
 // @return events 查询出的事件
 // @return err
 func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (events []interface{},
-	txReceipt *types.Receipt, ddcId uint64, err error) {
+	txReceipt *types.Receipt, ddcIds []uint64, err error) {
 	//获取对应的交易回执
 	receipt, err := config.Info.Conn().TransactionReceipt(context.Background(), txHash)
 	if err != nil {
 		log.Error.Printf("failed to execute TransactionReceipt: %v", err.Error())
-		return nil, nil, 0, types2.NewSDKError(types2.QueryError.Error(), err.Error())
+		return nil, nil, nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 	}
-	txReceipt = receipt
 	var event interface{}
+	var abi *abi2.ABI
 	//获取交易的logs中的所有log对应的event
 	for _, l := range receipt.Logs {
 		//1.匹配对应的合约
@@ -235,10 +235,11 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 		case config.Info.AuthorityAddress():
 			{
 				authority := handler.GetAuthority()
-				abi, err := contracts.AuthorityMetaData.GetAbi()
+
+				abi, err = contracts.AuthorityMetaData.GetAbi()
 				if err != nil {
-					log.Error.Printf("failed to get Authoriy abi: %v", err.Error())
-					return nil, txReceipt, 0, err
+					log.Error.Printf("failed to get Authority abi: %v", err.Error())
+					return nil, nil, nil, err
 				}
 				//2.匹配对应的事件
 				switch l.Topics[0] {
@@ -253,10 +254,10 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 		case config.Info.ChargeAddress():
 			{
 				charge := handler.GetCharge()
-				abi, err := contracts.ChargeMetaData.GetAbi()
+				abi, err = contracts.ChargeMetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get Charge abi: %v", err.Error())
-					return nil, txReceipt, 0, err
+					return nil, nil, nil, err
 				}
 				switch l.Topics[0] {
 				case abi.Events[constant.EventRecharge].ID:
@@ -274,10 +275,10 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 		case config.Info.Ddc721Address():
 			{
 				ddc721 := handler.GetDDC721()
-				abi, err := contracts.DDC721MetaData.GetAbi()
+				abi, err = contracts.DDC721MetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get DDC721 abi: %v", err.Error())
-					return nil, txReceipt, 0, err
+					return nil, nil, nil, err
 				}
 				switch l.Topics[0] {
 				case abi.Events[constant.EventTransfer].ID:
@@ -295,10 +296,10 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 		case config.Info.Ddc1155Address():
 			{
 				ddc1155 := handler.GetDDC1155()
-				abi, err := contracts.DDC1155MetaData.GetAbi()
+				abi, err = contracts.DDC1155MetaData.GetAbi()
 				if err != nil {
 					log.Error.Printf("failed to get DDC1155 abi: %v", err.Error())
-					return nil, txReceipt, 0, err
+					return nil, nil, nil, err
 				}
 				switch l.Topics[0] {
 				case abi.Events[constant.EventTransferSingle].ID:
@@ -316,10 +317,28 @@ func (b *BlockService) GetTxEventsWithReceiptAndDdcId(txHash common.Hash) (event
 		}
 		if err != nil {
 			log.Error.Printf("failed to parse event: %v", err.Error())
-			return nil, txReceipt, 0, err
+			return nil, nil, nil, err
 		}
-		if res, ok := event.(*contracts.DDC721Transfer); ok {
-			ddcId = res.DdcId.Uint64()
+		switch e := event.(type) {
+		case *contracts.DDC721Transfer: // 创建、转让、销毁
+			ddcIds = append(ddcIds, e.DdcId.Uint64())
+		case *contracts.DDC721SetURI:
+			ddcIds = append(ddcIds, e.DdcId.Uint64())
+		case *contracts.DDC721Approval:
+			ddcIds = append(ddcIds, e.DdcId.Uint64())
+		case *contracts.DDC721EnterBlacklist:
+			ddcIds = append(ddcIds, e.DdcId.Uint64())
+		case *contracts.DDC721ExitBlacklist:
+			ddcIds = append(ddcIds, e.DdcId.Uint64())
+		case *contracts.DDC1155TransferSingle:
+			ddcIds = append(ddcIds, e.DdcId.Uint64())
+		case *contracts.DDC1155TransferBatch:
+			for _, ddcID := range e.DdcIds {
+				ddcIds = append(ddcIds, ddcID.Uint64())
+			}
+			return
+		case *contracts.DDC1155SetURI:
+			ddcIds = append(ddcIds, e.DdcId.Uint64())
 		}
 		events = append(events, event)
 	}

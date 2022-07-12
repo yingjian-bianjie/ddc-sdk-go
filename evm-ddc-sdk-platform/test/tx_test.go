@@ -26,7 +26,7 @@ func TestGetTxEventsWithReceiptAndDdcId(t *testing.T) {
 }
 
 func TestGetBlockDdcs(t *testing.T) {
-	data, err := client.GetBlockDdcs(15057363)
+	data, err := client.GetBlockDdcs(15081548)
 	if err != nil {
 		t.Fatal(err.Error())
 	}

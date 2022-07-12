@@ -14,6 +14,6 @@ type BlockDdcInfoBean struct {
 
 type DdcInfoBean struct {
 	Hash    string
-	DdcId   uint64
+	DdcIds  []uint64
 	Receipt *types.Receipt
 }
