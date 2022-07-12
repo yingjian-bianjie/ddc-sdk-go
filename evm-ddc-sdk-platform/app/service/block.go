@@ -90,6 +90,7 @@ func (b *BlockService) GetBlockDdcs(blockNumber int64) (*dto.BlockDdcInfoBean, e
 			return nil, types2.NewSDKError(types2.QueryError.Error(), err.Error())
 		}
 		blockDdcs = append(blockDdcs, dto.DdcInfoBean{
+			Hash:    tx.Hash().String(),
 			Receipt: txReceipt,
 			DdcId:   ddcId,
 		})
