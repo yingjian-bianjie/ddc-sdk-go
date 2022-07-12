@@ -6,7 +6,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-platform-go/pkg/contracts"
+	"github.com/bianjieai/ddc-sdk-go/evm-ddc-sdk-platform/pkg/contracts"
 )
 
 func TestGetBlockByNumber(t *testing.T) {
