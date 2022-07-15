@@ -244,7 +244,6 @@ func (b BlockService) parseLogs(logs chan gethtypes.Log, resChs chan interface{}
 		}
 		resChs <- event
 	}
-	return
 }
 
 // GetTxEvents
