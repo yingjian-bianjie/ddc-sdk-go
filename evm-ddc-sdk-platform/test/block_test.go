@@ -2,7 +2,6 @@ package test
 
 import (
 	"fmt"
-	"github.com/bianjieai/ddc-sdk-go/ddc-sdk-platform-go/app/service"
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -29,17 +28,4 @@ func TestGetEvent(t *testing.T) {
 		}
 		fmt.Println(res.DdcId)
 	}
-}
-
-func TestEvents(t *testing.T) {
-
-	sss, err := service.NewBlockService()
-	if err != nil {
-		fmt.Println("---------------err", err)
-	}
-	events, err := sss.GetBlockEvents(15057363)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(events)
 }

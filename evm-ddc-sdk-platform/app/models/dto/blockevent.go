@@ -1,6 +1,8 @@
 package dto
 
-import "github.com/ethereum/go-ethereum/core/types"
+import (
+	"github.com/ethereum/go-ethereum/common"
+)
 
 type BlockEventBean struct {
 	Events    []interface{}
@@ -13,7 +15,6 @@ type BlockDdcInfoBean struct {
 }
 
 type DdcInfoBean struct {
-	Hash    string
-	DdcIds  []uint64
-	Receipt *types.Receipt
+	Hash   common.Hash
+	DdcIds []uint64
 }
