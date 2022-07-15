@@ -20,7 +20,8 @@ func TestGetBlockDdcs(t *testing.T) {
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-	for _, val := range data.DdcInfos {
-		t.Log(val.DdcIds, val.Hash)
-	}
+	fmt.Println(len(data.DdcInfos))
+	//for _, val := range data.DdcInfos {
+	//	t.Log(val.DdcIds, val.Hash)
+	//}
 }

@@ -289,14 +289,25 @@ func (b *BlockService) GetBlockDdcs(blockNumber int64) (*dto.BlockDdcInfoBean, e
 		result = append(result, ch)
 	}
 
-	var blockDdcs []dto.DdcInfoBean
+	var blockDdcs, arrs []dto.DdcInfoBean
+	setMap := make(map[string]bool, len(ddcInfoChs))
 	close(ddcInfoChs)
 	for {
 		item, ok := <-ddcInfoChs
 		if !ok {
 			break
 		}
-		blockDdcs = append(blockDdcs, item)
+		if len(item.DdcIds) > 0 {
+			blockDdcs = append(blockDdcs, item)
+			setMap[item.Hash.String()] = true
+		} else {
+			arrs = append(arrs, item)
+		}
+	}
+	for _, val := range arrs {
+		if _, ok := setMap[val.Hash.String()]; !ok {
+			blockDdcs = append(blockDdcs, val)
+		}
 	}
 
 	err = <-errorChs
