@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"fmt"
 	"math/big"
 	"runtime"
 	"strconv"
@@ -49,11 +48,23 @@ func NewBlockService() (*BlockService, error) {
 	}
 
 	abiAuthority, err := contracts.AuthorityMetaData.GetAbi()
-	abiCharge, err := contracts.ChargeMetaData.GetAbi()
-	abiDDC721, err := contracts.DDC721MetaData.GetAbi()
-	abiDDC1155, err := contracts.DDC1155MetaData.GetAbi()
 	if err != nil {
 		log.Error.Printf("failed to get Authority abi: %v", err.Error())
+		return nil, err
+	}
+	abiCharge, err := contracts.ChargeMetaData.GetAbi()
+	if err != nil {
+		log.Error.Printf("failed to get Charge abi: %v", err.Error())
+		return nil, err
+	}
+	abiDDC721, err := contracts.DDC721MetaData.GetAbi()
+	if err != nil {
+		log.Error.Printf("failed to get DDC721 abi: %v", err.Error())
+		return nil, err
+	}
+	abiDDC1155, err := contracts.DDC1155MetaData.GetAbi()
+	if err != nil {
+		log.Error.Printf("failed to get DDC1155 abi: %v", err.Error())
 		return nil, err
 	}
 
@@ -81,9 +92,9 @@ func (b *BlockService) GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, e
 
 	logs, time, err := b.getLogs(blockNumber)
 	if err != nil {
+		log.Error.Printf("get logs failed :%v", err.Error())
 		return &dto.BlockEventBean{}, err
 	}
-	fmt.Println(logs, time)
 
 	logChs := make(chan gethtypes.Log, len(logs))
 	resultChs := make(chan interface{}, len(logs))
@@ -114,6 +125,7 @@ func (b *BlockService) GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, e
 
 	err = <-errorChs
 	if err != nil {
+		log.Error.Printf("failed to parse log: %v", err.Error())
 		return &dto.BlockEventBean{}, err
 	}
 
@@ -158,12 +170,14 @@ func (b *BlockService) getLogs(blockNumber int64) ([]gethtypes.Log, uint64, erro
 		Topics:    topics,
 	}
 	logs, err := b.ethClient.FilterLogs(context.Background(), filter)
+	if err != nil {
+		return nil, 0, err
+	}
 
 	return logs, block.Time(), nil
 }
 
 func (b BlockService) parseLogs(logs chan gethtypes.Log, resChs chan interface{}, errChs chan error, wg *sync.WaitGroup) {
-	//var events []interface{}
 	var err error
 
 	defer func() {
@@ -226,8 +240,6 @@ func (b BlockService) parseLogs(logs chan gethtypes.Log, resChs chan interface{}
 			event, err = ddc1155.ParseSetURI(l)
 		}
 		if err != nil {
-			log.Error.Printf("failed to parse log: %v", err.Error())
-
 			return
 		}
 		resChs <- event
