@@ -89,8 +89,12 @@ func (b *BlockService) GetBlockByNumber(blockNumber int64) (*gethtypes.Block, er
 
 func (b *BlockService) GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, error) {
 	var result []interface{}
-
-	logs, time, err := b.getLogs(blockNumber)
+	//查找区块中所有交易
+	block, err := b.ethClient.BlockByNumber(context.Background(), big.NewInt(blockNumber))
+	if err != nil {
+		return nil, err
+	}
+	logs, err := b.getLogs(blockNumber)
 	if err != nil {
 		log.Error.Printf("get logs failed :%v", err.Error())
 		return &dto.BlockEventBean{}, err
@@ -131,17 +135,11 @@ func (b *BlockService) GetBlockEvents(blockNumber int64) (*dto.BlockEventBean, e
 
 	return &dto.BlockEventBean{
 		Events:    result,
-		Timestamp: strconv.FormatUint(time, 10),
+		Timestamp: strconv.FormatUint(block.Time(), 10),
 	}, nil
 }
 
-func (b *BlockService) getLogs(blockNumber int64) ([]gethtypes.Log, uint64, error) {
-	//查找区块中所有交易
-	block, err := b.ethClient.BlockByNumber(context.Background(), big.NewInt(blockNumber))
-	if err != nil {
-		return nil, 0, err
-	}
-
+func (b *BlockService) getLogs(blockNumber int64) ([]gethtypes.Log, error) {
 	addresses := []common.Address{config.Info.AuthorityAddress(), config.Info.ChargeAddress(), config.Info.Ddc721Address(), config.Info.Ddc1155Address()}
 	topics := [][]common.Hash{{b.abiAuthority.Events[constant.EventAddAccount].ID,
 		b.abiAuthority.Events[constant.EventUpdateAccountState].ID,
@@ -171,10 +169,10 @@ func (b *BlockService) getLogs(blockNumber int64) ([]gethtypes.Log, uint64, erro
 	}
 	logs, err := b.ethClient.FilterLogs(context.Background(), filter)
 	if err != nil {
-		return nil, 0, err
+		return nil, err
 	}
 
-	return logs, block.Time(), nil
+	return logs, nil
 }
 
 func (b BlockService) parseLogs(logs chan gethtypes.Log, resChs chan interface{}, errChs chan error, wg *sync.WaitGroup) {
@@ -254,8 +252,12 @@ func (b BlockService) parseLogs(logs chan gethtypes.Log, resChs chan interface{}
 // @return error
 func (b *BlockService) GetBlockDdcs(blockNumber int64) (*dto.BlockDdcInfoBean, error) {
 	var result []interface{}
-
-	logs, time, err := b.getLogs(blockNumber)
+	//查找区块中所有交易
+	block, err := b.ethClient.BlockByNumber(context.Background(), big.NewInt(blockNumber))
+	if err != nil {
+		return nil, err
+	}
+	logs, err := b.getLogs(blockNumber)
 	if err != nil {
 		log.Error.Printf("get logs failed :%v", err.Error())
 		return &dto.BlockDdcInfoBean{}, err
@@ -271,7 +273,11 @@ func (b *BlockService) GetBlockDdcs(blockNumber int64) (*dto.BlockDdcInfoBean, e
 	close(logChs) // 关闭管道，避免后面协程读阻塞！
 
 	if len(logChs) < 1 {
-		return &dto.BlockDdcInfoBean{}, nil
+		var blockDdcs []dto.DdcInfoBean
+		for _, tx := range block.Transactions() {
+			blockDdcs = append(blockDdcs, dto.DdcInfoBean{Hash: tx.Hash()})
+		}
+		return &dto.BlockDdcInfoBean{DdcInfos: blockDdcs, Timestamp: strconv.FormatUint(block.Time(), 10)}, nil
 	}
 
 	var wg sync.WaitGroup
@@ -318,7 +324,7 @@ func (b *BlockService) GetBlockDdcs(blockNumber int64) (*dto.BlockDdcInfoBean, e
 
 	return &dto.BlockDdcInfoBean{
 		DdcInfos:  blockDdcs,
-		Timestamp: strconv.FormatUint(time, 10),
+		Timestamp: strconv.FormatUint(block.Time(), 10),
 	}, nil
 }
 
