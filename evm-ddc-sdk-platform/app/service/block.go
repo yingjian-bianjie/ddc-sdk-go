@@ -412,7 +412,6 @@ func (b BlockService) parseLogsForddc(logs chan gethtypes.Log, resChs chan inter
 			for _, ddcID := range e.DdcIds {
 				ddcIds = append(ddcIds, ddcID.Uint64())
 			}
-			return
 		case *contracts.DDC1155SetURI:
 			ddcIds = append(ddcIds, e.DdcId.Uint64())
 		}
