@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/bianjieai/ddc-sdk-go/evm-ddc-sdk-platform/pkg/contracts"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -353,4 +354,20 @@ func (d *DDC1155Service) SetURI(opts *bind.TransactOpts, owner string, ddcID int
 	}
 
 	return signedTx, nil
+}
+
+// DDC1155ParseTransferSingle
+// @Description: 日志解析
+// @return err
+func (d *DDC1155Service) DDC1155ParseTransferSingle(log types.Log) (*contracts.DDC1155TransferSingle, error) {
+	transfer, err := handler.GetDDC1155().ParseTransferSingle(log)
+	return transfer, err
+}
+
+// DDC1155ParseTransferBatch
+// @Description: 日志解析
+// @return err
+func (d *DDC1155Service) DDC1155ParseTransferBatch(log types.Log) (*contracts.DDC1155TransferBatch, error) {
+	transfer, err := handler.GetDDC1155().ParseTransferBatch(log)
+	return transfer, err
 }

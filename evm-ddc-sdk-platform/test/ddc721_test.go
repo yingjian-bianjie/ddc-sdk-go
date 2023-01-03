@@ -81,3 +81,14 @@ func TestDDCURI(t *testing.T) {
 func TestSymbol(t *testing.T) {
 	fmt.Println(ddc721Service.Symbol())
 }
+
+func TestParseTransfer(t *testing.T) {
+	receipt, err := client.GetTxReceipt("0x3eb1854f20dbd35405adee6f72e1fba1576b1cce245dbab279d969ca5788aa12")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, vlog := range receipt.Logs {
+		fmt.Println(ddc721Service.ParseTransfer(*vlog))
+	}
+
+}

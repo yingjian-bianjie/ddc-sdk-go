@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/bianjieai/ddc-sdk-go/evm-ddc-sdk-platform/pkg/contracts"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -369,4 +370,12 @@ func (d *DDC721Service) SetURI(opts *bind.TransactOpts, ddcID int64, ddcURI stri
 	}
 
 	return signedTx, nil
+}
+
+// DDC721ParseTransfer
+// @Description: 日志解析
+// @return err
+func (d *DDC721Service) DDC721ParseTransfer(log types.Log) (*contracts.DDC721Transfer, error) {
+	transfer, err := handler.GetDDC721().ParseTransfer(log)
+	return transfer, err
 }

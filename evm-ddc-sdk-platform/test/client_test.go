@@ -19,22 +19,22 @@ var (
 		//Build()
 		SetSignEventListener(new(SignListener)). //注册实现了签名接口的结构体
 		SetGasPrice(1).                          //设置gasPrice
-		SetGatewayURL("https://opbningxia.bsngate.com:18602/api/9979c62195e54c43a7cfa4935a2c075e/evmrpc").
-		SetAuthorityAddress("0xFa1d2d3EEd20C4E4F5b927D9730d9F4D56314B29").
-		SetChargeAddress("0x0B8ae0e1b4a4Eb0a0740A250220eE3642d92dc4D").
-		SetDDC721Address("0x354c6aF2cB870BEFEA8Ea0284C76e4A46B8F2870").
-		SetDDC1155Address("0x0E762F4D11439B1130D402995328b634cB9c9973").
+		SetGatewayURL("http://192.168.0.160:8545").
+		SetAuthorityAddress("0x95aDFbA9050C5D886419334Ae478b9844f413eF2").
+		SetChargeAddress("0x1C917baf05863417391acCfe85d305Eae41401Ec").
+		SetDDC721Address("0x02A25C69843E197e3063Ed848f6FEA512633CB8E").
+		SetDDC1155Address("0x6dCDA326a284fC957af5681aa4a733dA0A29B26f").
 		RegisterLog("./log.log").
 		Build()
-		//SetGatewayURL("https://opbningxia.bsngate.com:18602/api/[ProjectId]/evmrpc")
-		//SetGatewayAPIKey("x-api-key").
-		//SetGatewayAPIValue("[ProjectKey]").
-		//SetAuthorityAddress("0xa7FC5B0F4A0085c5Ce689b919a866675Ce37B66b").
-		//SetChargeAddress("0x3BBb01B38958d4dbF1e004611EbB3c65979B0511").
-		//SetDDC721Address("0x3B09b7A00271C5d9AE84593850dE3A526b8BF96e").
-		//SetDDC1155Address("0xe5d3b9E7D16E03A4A1060c72b5D1cb7806DD9070").
-		//RegisterLog("./log.log"). //设置日志输出的文件路径
-		//Build()
+	//SetGatewayURL("https://opbningxia.bsngate.com:18602/api/[ProjectId]/evmrpc")
+	//SetGatewayAPIKey("x-api-key").
+	//SetGatewayAPIValue("[ProjectKey]").
+	//SetAuthorityAddress("0xa7FC5B0F4A0085c5Ce689b919a866675Ce37B66b").
+	//SetChargeAddress("0x3BBb01B38958d4dbF1e004611EbB3c65979B0511").
+	//SetDDC721Address("0x3B09b7A00271C5d9AE84593850dE3A526b8BF96e").
+	//SetDDC1155Address("0xe5d3b9E7D16E03A4A1060c72b5D1cb7806DD9070").
+	//RegisterLog("./log.log"). //设置日志输出的文件路径
+	//Build()
 
 	opts = new(bind.TransactOpts)
 
