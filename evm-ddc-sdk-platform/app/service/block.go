@@ -153,7 +153,11 @@ func (b *BlockService) getLogs(blockNumber int64) ([]gethtypes.Log, error) {
 		b.abiDDC721.Events[constant.EventPay].ID,
 		b.abiDDC721.Events[constant.EventEnterBlacklist].ID,
 		b.abiDDC721.Events[constant.EventExitBlacklist].ID,
-		b.abiDDC721.Events[constant.EventSetURI].ID,
+		b.abiDDC721.Events[constant.EventTransferBatch].ID,
+		b.abiDDC721.Events[constant.EventMetaTransferBatch].ID,
+		b.abiDDC721.Events[constant.EventMetaTransfer].ID,
+		b.abiDDC721.Events[constant.EventUnLocklist].ID,
+		b.abiDDC721.Events[constant.EventLocklist].ID,
 		b.abiDDC1155.Events[constant.EventTransferSingle].ID,
 		b.abiDDC1155.Events[constant.EventTransferBatch].ID,
 		b.abiDDC1155.Events[constant.EventEnterBlacklist].ID,
@@ -380,6 +384,16 @@ func (b BlockService) parseLogsForddc(logs chan gethtypes.Log, resChs chan inter
 			event, err = ddc721.ParseExitBlacklist(l)
 		case b.abiDDC721.Events[constant.EventSetURI].ID:
 			event, err = ddc721.ParseSetURI(l)
+		case b.abiDDC721.Events[constant.EventMetaTransferBatch].ID:
+			event, err = ddc721.ParseMetaTransferBatch(l)
+		case b.abiDDC721.Events[constant.EventTransferBatch].ID:
+			event, err = ddc721.ParseTransferBatch(l)
+		case b.abiDDC721.Events[constant.EventMetaTransfer].ID:
+			event, err = ddc721.ParseMetaTransfer(l)
+		case b.abiDDC721.Events[constant.EventUnLocklist].ID:
+			event, err = ddc721.ParseUnLocklist(l)
+		case b.abiDDC721.Events[constant.EventLocklist].ID:
+			event, err = ddc721.ParseLocklist(l)
 		case b.abiDDC1155.Events[constant.EventTransferSingle].ID:
 			event, err = ddc1155.ParseTransferSingle(l)
 		case b.abiDDC1155.Events[constant.EventTransferBatch].ID:
@@ -397,6 +411,20 @@ func (b BlockService) parseLogsForddc(logs chan gethtypes.Log, resChs chan inter
 
 		switch e := event.(type) {
 		case *contracts.DDC721Transfer: // 创建、转让、销毁
+			ddcIds = append(ddcIds, e.DdcId.Uint64())
+		case *contracts.DDC721TransferBatch: // 创建、转让、销毁
+			for _, ddcID := range e.DdcIds {
+				ddcIds = append(ddcIds, ddcID.Uint64())
+			}
+		case *contracts.DDC721MetaTransferBatch:
+			for _, ddcID := range e.DdcIds {
+				ddcIds = append(ddcIds, ddcID.Uint64())
+			}
+		case *contracts.DDC721MetaTransfer:
+			ddcIds = append(ddcIds, e.DdcId.Uint64())
+		case *contracts.DDC721UnLocklist:
+			ddcIds = append(ddcIds, e.DdcId.Uint64())
+		case *contracts.DDC721Locklist:
 			ddcIds = append(ddcIds, e.DdcId.Uint64())
 		case *contracts.DDC721SetURI:
 			ddcIds = append(ddcIds, e.DdcId.Uint64())

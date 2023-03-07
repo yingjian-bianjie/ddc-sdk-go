@@ -16,7 +16,7 @@ func TestGetTransStatus(t *testing.T) {
 }
 
 func TestGetBlockDdcs(t *testing.T) {
-	data, err := client.GetBlockDdcs(15057363)
+	data, err := client.GetBlockDdcs(23172051)
 	if err != nil {
 		t.Fatal(err.Error())
 	}

@@ -379,3 +379,27 @@ func (d *DDC721Service) DDC721ParseTransfer(log types.Log) (*contracts.DDC721Tra
 	transfer, err := handler.GetDDC721().ParseTransfer(log)
 	return transfer, err
 }
+
+// DDC721ParseTransferBatch
+// @Description: 日志解析
+// @return err
+func (d *DDC721Service) DDC721ParseTransferBatch(log types.Log) (*contracts.DDC721TransferBatch, error) {
+	transfer, err := handler.GetDDC721().ParseTransferBatch(log)
+	return transfer, err
+}
+
+// DDC721ParseMetaTransfer
+// @Description: 日志解析
+// @return err
+func (d *DDC721Service) DDC721ParseMetaTransfer(log types.Log) (*contracts.DDC721MetaTransfer, error) {
+	transfer, err := handler.GetDDC721().ParseMetaTransfer(log)
+	return transfer, err
+}
+
+// DDC721ParseMetaTransferBatch
+// @Description: 日志解析
+// @return err
+func (d *DDC721Service) DDC721ParseMetaTransferBatch(log types.Log) (*contracts.DDC721MetaTransferBatch, error) {
+	transfer, err := handler.GetDDC721().ParseMetaTransferBatch(log)
+	return transfer, err
+}

@@ -15,4 +15,8 @@ const (
 	EventSetURI                = "SetURI"
 	EventTransferSingle        = "TransferSingle"
 	EventTransferBatch         = "TransferBatch"
+	EventMetaTransferBatch     = "MetaTransferBatch"
+	EventMetaTransfer          = "MetaTransfer"
+	EventUnLocklist            = "UnLocklist"
+	EventLocklist              = "Locklist"
 )

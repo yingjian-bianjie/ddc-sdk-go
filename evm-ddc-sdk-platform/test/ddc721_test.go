@@ -88,7 +88,7 @@ func TestParseTransfer(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, vlog := range receipt.Logs {
-		fmt.Println(ddc721Service.ParseTransfer(*vlog))
+		fmt.Println(ddc721Service.DDC721ParseTransfer(*vlog))
 	}
 
 }
